@@ -9,6 +9,8 @@ import SongPage from "./components/SongPage";
 import UploadForm from "./components/UploadForm";
 
 import { getAllSongs } from "./store/songs";
+import Sidebar from "./components/Sidebar";
+import Content from "./components/Content";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,14 +24,15 @@ function App() {
   // console.log(songs);
 
   return (
-    <div id="container">
+    <div id="container" className="">
       {isLoaded && (
         <Switch>
           <Route exact path="/">
             <Splash isLoaded={isLoaded} />
           </Route>
           <Route path="/dashboard">
-            <Dashboard isLoaded={isLoaded} />
+            <Sidebar isLoaded={isLoaded} />
+            <Content/>
           </Route>
           <Route path="/songs/:songId">
             <SongPage isLoaded={isLoaded} />

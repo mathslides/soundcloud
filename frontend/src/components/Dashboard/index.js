@@ -3,9 +3,13 @@ import MusicPlayer from "../MusicPlayer";
 import Navigation from "../Navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
+import { FaHome, FaSearch, FaBook } from 'react-icons/fa';
 import { getAllSongs } from "../../store/songs";
 import "./Dashboard.css";
+import Menu from "../Sidebar/Menu";
+import Sidebar from "../Sidebar";
+// import Content from "../Content";
 
 export default function Dashboard({ isLoaded }) {
   const dispatch = useDispatch();
@@ -25,38 +29,48 @@ export default function Dashboard({ isLoaded }) {
   const songs = useSelector((state) => state.songsRed.songs);
 
   return (
-    <div id="top-dashboard">
-      <Navigation isLoaded={isLoaded} />
-      <h1 id="dashboard-title">Top Songs On SoundWave</h1>
-      <div className="dashboard-tracks-container">
-        <div className="dashboard-songs">
-          {songs?.allSongs.map((song) => {
-            return (
-              <div
-                className="dashboard-cover-container"
-                onClick={() => {
-                  history.push(`/songs/${song.id}`);
-                  window.scrollTo(0, 0);
-                }}
-                key={song.id}
-              >
-                <a className="dashboard-cover-title">{song.title}</a>
-                <img className="dashboard-cover" src={song.imgUrl}></img>
-                <audio
-                  className="audio-dashboard"
-                  controls
-                  controlsList="nodownload"
-                  src={song.audioFile}
-                ></audio>
-                <a className="dashboard-cover-artist">{song.artist}</a>
-              </div>
-            );
-          })}
-          <div id="side-dashboard">
-            <div id="side-top-border"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+
+      <nav className="px-2">
+        <ul className="flex flex-col">
+          <li>
+            <NavLink
+              // activeClassName="bg-active"
+              exact
+              to={"/"}
+              className="h-10 flex gap-x-4  text-white items-center text-sm font-semibold text-link rounded hover:text-white px-4"
+            >
+              <span>
+              <FaHome />
+              </span>
+              Ana sayfa
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              activeClassName="bg-active "
+              to={"/search"}
+              className="h-10 flex gap-x-4  text-white items-center text-sm font-semibold text-link rounded hover:text-white px-4"
+            >
+              <span>
+              <FaSearch />
+              </span>
+              Ara
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              activeClassName="bg-active"
+              to={"/collection"}
+              className="h-10 flex gap-x-4  text-white items-center text-sm font-semibold text-link rounded hover:text-white px-4"
+            >
+              <span>
+              <FaBook />
+              </span>
+              Kitaplığın
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
+
   );
 }

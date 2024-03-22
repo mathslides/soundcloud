@@ -1,16 +1,20 @@
+/* src/styles.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 /* TODO Add site wide styles */
 @import url("https://fonts.googleapis.com/css2?family=Overpass:wght@100&display=swap");
 /* @import url("https://fonts.googleapis.com/css2?family=Overpass:wght@100;200&display=swap"); */
 * {
-  font-family: "Overpass", sans-serif;
-  margin: 0;
+  font-family:  sans-serif;
+  /* margin: 0; */
 }
 
 html {
-  background: rgb(240, 240, 240);
+  background: #171717;
 }
 
-#container {
+#container { 
   display: flex;
   flex-direction: column;
   align-items: center;

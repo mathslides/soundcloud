@@ -36,7 +36,7 @@ function SignupFormModal() {
         onClick={() => dispatch(openSignup())}
       >
         Create Account
-      </button>
+      </button> 
       <Modal
         isOpen={signupState}
         closeTimeoutMS={500}

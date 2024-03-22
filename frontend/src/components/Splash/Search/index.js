@@ -20,8 +20,8 @@ export default function Search() {
         <div id="search-or-div">
           <p id="search-or">or</p>
         </div>
-        <div id="up-btn-div">
-          <button id="upload-search-btn" onClick={() => dispatch(openLogin())}>
+        <div id="up-btn-div" className="pt-2 mb-3 w-screen">
+          <button id="upload-search-btn"  onClick={() => dispatch(openLogin())}>
             Upload your own
           </button>
         </div>

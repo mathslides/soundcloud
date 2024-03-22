@@ -19,7 +19,7 @@ export default function TrendingTracks() {
   return (
     <div className="tr-container">
       <p id="trending-tracks-title">
-        Hear what’s trending in the SoundWave community
+        Hear what’s trending in the RecordLabel community
       </p>
       <div className="trending-covers-container">
         {trendingSongs?.trendSongs.map((song) => {

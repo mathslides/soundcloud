@@ -30,7 +30,7 @@ function SplashNavigation({ isLoaded }) {
         <div id="splash-logo">
           <img id="splash-imgLogo" src={logo} />
           <NavLink id="splash-homeBtn" exact to="/">
-            SOUNDWAVE
+            RECORDLABEL
           </NavLink>
         </div>
 

@@ -67,10 +67,10 @@
   width: 400px;
   border-radius: 5px;
   color: #fff;
-  background-color: #15883e;
+  background-color: lightseagreen;
   cursor: pointer;
 }
 
 .uploadBtn:hover {
-  background-color: #1fb453;
+  background-color: lightseagreen;
 }

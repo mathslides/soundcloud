@@ -25,13 +25,19 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  // const logout = (e) => {
+  //   //! bug with not redirecting to home page
+  //   e.preventDefault();
+  //   history.push("/");
+  //   dispatch(sessionActions.logout());
+  //   return <Redirect to="/" />;
+  // };
   const logout = (e) => {
-    //! bug with not redirecting to home page
     e.preventDefault();
-    history.push("/");
-    dispatch(sessionActions.logout());
-    // return <Redirect to="/" />;
+    dispatch(sessionActions.logout()); // Dispatch logout action
+    window.location.reload(); // Reload the page
   };
+  
 
   return (
     <>

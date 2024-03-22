@@ -3,7 +3,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import "./LoginForm.css";
-// import { closeLogin } from "../../store/modal";
+import { closeLogin } from "../../store/modal";
 
 export default function LoginFormPage() {
   const dispatch = useDispatch();
@@ -32,13 +32,19 @@ export default function LoginFormPage() {
 
   const demoSubmit = (e) => {
     e.preventDefault();
-    // closeLogin();
+    closeLogin();
     history.push("/dashboard");
     return dispatch(sessionActions.demoLogin());
   };
 
+  const closeModal = () => dispatch(closeLogin());
+
+
   return (
     <div className="login-container">
+      {/* <button className="close-btn" onClick={closeModal}>
+        <i className="fas fa-times"></i>
+      </button> */}
       <div id="login-title">Welcome back!</div>
       <form onSubmit={demoSubmit}>
         <button className="loginFormBtns" id="demoBtn" type="submit">

@@ -91,9 +91,9 @@ export default function Slider() {
           alt="studio picture"
         />
         <span>
-          <span id="slider1title">Discover more with SoundWave Go+</span>
+          <span id="slider1title">Discover more with RecordLabel Go+</span>
           <p id="slider1text">
-            SoundWave Go+ lets you listen offline, ad-free, with over 150
+          RecordLabel Go+ lets you listen offline, ad-free, with over 150
             million tracks — and growing.
           </p>
           <span id="slider1btns">
@@ -134,10 +134,10 @@ export default function Slider() {
         />
         <span className="slider2container">
           <span id="slider1title">
-            What's next in music is first on SoundWave
+            What's next in music is first on RecordLabel
           </span>
           <p id="slider1text">
-            Upload your first track and begin your journey. SoundWave gives you
+            Upload your first track and begin your journey. RecordLabel gives you
             space to create, find your fans, and connect with other artists.
           </p>
           <span id="slider1btns">

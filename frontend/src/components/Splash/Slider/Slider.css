@@ -33,7 +33,7 @@
 }
 
 #slider1text {
-  font-size: 20px;
+  font-size: 16px;
   max-width: 530px;
   text-align: center;
   position: relative;
@@ -100,8 +100,8 @@
 }
 #slider1btn2 {
   cursor: pointer;
-  background-color: #15883e;
-  border: 1px solid #15883e;
+  background-color: lightseagreen;
+  border: 1px solid lightseagreen;
   color: #fff;
   /* border-color: #ccc; */
   border: none;
@@ -122,8 +122,8 @@
 
 #slider2btn2 {
   cursor: pointer;
-  background-color: #15883e;
-  border: 1px solid #15883e;
+  background-color: lightseagreen;
+  border: 1px solid lightseagreen;
   color: #fff;
   /* border-color: #ccc; */
   border: none;

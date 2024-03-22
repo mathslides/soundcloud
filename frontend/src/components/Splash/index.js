@@ -56,58 +56,58 @@ export default function Splash({ isLoaded }) {
       <div id="bottom-splash">
         <MobileSplash />
         <CreatorSplash />
-        {/* <div id="thanks-container"> */}
-        <div id="thanks-splash">
-          <div id="thanks-content">
-            <div>Thanks for listening. Now join in.</div>
-            <p>
-              Save tracks, follow artists and build playlists. All for free.
-            </p>
-            <>
-              <button
-                id="splash-signup-btn"
-                onClick={() => dispatch(openSignup())}
-              >
-                Create account
-              </button>
-              <Modal
-                isOpen={signupState}
-                closeTimeoutMS={500}
-                onRequestClose={closeModal1}
-                // style={customStyles}
-                contentLabel="Signup Modal"
-                overlayClassName="OuterModal"
-                className="InnerModal"
-              >
-                <SignupForm />
-              </Modal>
-            </>
-            <div id="splash-login-container">
-              <p id="splash-log-txt">Already have an account?</p>
+        <div id="thanks-container">
+          <div id="thanks-splash">
+            <div id="thanks-content" style={{ fontSize: "30px" }}>
+              <div>Thanks for listening. Now join in.</div>
+              <p >
+                Save tracks, follow artists and build playlists. All for free.
+              </p>
               <>
                 <button
-                  id="splash-login-btn"
-                  onClick={() => dispatch(openLogin())}
+                  id="splash-signup-btn"
+                  onClick={() => dispatch(openSignup())}
                 >
-                  Sign in
+                  Create account
                 </button>
                 <Modal
-                  isOpen={loginState}
+                  isOpen={signupState}
                   closeTimeoutMS={500}
-                  onRequestClose={closeModal2}
+                  onRequestClose={closeModal1}
                   // style={customStyles}
-                  contentLabel="Login Modal"
+                  contentLabel="Signup Modal"
                   overlayClassName="OuterModal"
                   className="InnerModal"
                 >
-                  <LoginForm />
+                  <SignupForm />
                 </Modal>
               </>
+              <div id="splash-login-container">
+                <p id="splash-log-txt">Already have an account?</p>
+                <>
+                  <button
+                    id="splash-login-btn"
+                    onClick={() => dispatch(openLogin())}
+                  >
+                    Sign in
+                  </button>
+                  <Modal
+                    isOpen={loginState}
+                    closeTimeoutMS={500}
+                    onRequestClose={closeModal2}
+                    // style={customStyles}
+                    contentLabel="Login Modal"
+                    overlayClassName="OuterModal"
+                    className="InnerModal"
+                  >
+                    <LoginForm />
+                  </Modal>
+                </>
+              </div>
             </div>
           </div>
+          <SplashFooter />
         </div>
-        <SplashFooter />
-        {/* </div> */}
       </div>
     </div>
   );

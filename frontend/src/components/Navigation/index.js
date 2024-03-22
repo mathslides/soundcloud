@@ -31,7 +31,7 @@ function Navigation({ isLoaded }) {
           <div id="logo">
             <img id="imgLogo" src={logo} />
             <NavLink id="homeBtn" exact to="/dashboard">
-              SOUNDWAVE
+              RecordLabel
             </NavLink>
             <NavLink id="nav-home" exact to="/dashboard">
               Home
@@ -42,7 +42,7 @@ function Navigation({ isLoaded }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Github
+              About Us
             </a>
             <div className="nav-search-container">
               <input className="nav-search" placeholder="Search"></input>
@@ -56,7 +56,7 @@ function Navigation({ isLoaded }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              LinkedIn
+              Mission
             </a>
             <NavLink id="nav-upload" to="/upload">
               Upload

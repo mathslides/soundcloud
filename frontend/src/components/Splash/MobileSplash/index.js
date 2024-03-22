@@ -14,7 +14,7 @@ export default function MobileSplash() {
       <div id="mob-border"></div>
       <div>
         <p id="mob-txt">
-          SoundWave is only available in the browser, but will be accessible in
+        RecordLabel is only available in the browser, but will be accessible in
           mobile browsers soon.
         </p>
       </div>

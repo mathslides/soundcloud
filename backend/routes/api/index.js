@@ -20,26 +20,26 @@ router.post("/test", (req, res) => {
   res.json({ requestBody: req.body });
 });
 
-// // setting the user token test
-// router.get(
-//   "/set-token-cookie",
-//   asyncHandler(async (req, res) => {
-//     const user = await User.findOne({
-//       where: {
-//         username: "Demo",
-//       },
-//     });
-//     setTokenCookie(res, user);
-//     return res.json({ user });
-//   })
-// );
+// setting the user token test
+router.get(
+  "/set-token-cookie",
+  asyncHandler(async (req, res) => {
+    const user = await User.findOne({
+      where: {
+        username: "Demo",
+      },
+    });
+    setTokenCookie(res, user);
+    return res.json({ user });
+  })
+);
 
-// // restoring the user test
-// router.get("/restore-user", restoreUser, (req, res) => {
-//   return res.json(req.user);
-// });
+// restoring the user test
+router.get("/restore-user", restoreUser, (req, res) => {
+  return res.json(req.user);
+});
 
-// // require auth test route
-// router.get("/require-auth", requireAuth, (req, res) => res.json(req.user));
+// require auth test route
+router.get("/require-auth", requireAuth, (req, res) => res.json(req.user));
 
 module.exports = router;

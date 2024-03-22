@@ -52,7 +52,7 @@ function SignupFormPage() {
 
   return (
     <div className="signup-container">
-      <div id="signup-title">Welcome To SoundWave</div>
+      <div id="signup-title">Welcome To RecordLabel</div>
       <form onSubmit={demoSubmit}>
         <button className="signupdemoBtn" id="demoBtn2" type="submit">
           Demo Log In

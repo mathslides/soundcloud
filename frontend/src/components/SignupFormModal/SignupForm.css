@@ -30,15 +30,15 @@
 
 #signup-title {
   position: absolute;
-  /* top: 310px; */
-  top: 275px;
-  right: 775px;
+  top: 200px;
+  /* top: 275px; */
+  /* right: 775px; */
   font-size: 35px;
   font-weight: bold;
 }
 
 #createAccBtn {
-  background-color: #15883e;
+  background-color: lightseagreen;
   align-items: center;
   padding-top: 5px;
   border-radius: 5px;
@@ -93,11 +93,11 @@
   width: 400px;
   border-radius: 5px;
   color: #fff;
-  background-color: #15883e;
+  background-color: lightseagreen;
   cursor: pointer;
 }
 .signup-button:hover {
-  background-color: #1fb453;
+  background-color: lightseagreen;
 }
 
 .signup-or {
