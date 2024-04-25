@@ -26,9 +26,6 @@ function UploadForm() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  console.log("imgUrl", imgUrl);
-  console.log("defaultAlbum1", defaultAlbum1);
-  console.log("albumCoverBase64", albumCoverBase64);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,8 +41,6 @@ function UploadForm() {
       audioFile: audioFile.audioFile,
       imgUrl: imgUrl
     };
-    console.log("song", song);
-    console.log("imgUrl", imgUrl);
     try {
       await dispatch(postSong(song));
       toast.success('Song has been uploaded!', {

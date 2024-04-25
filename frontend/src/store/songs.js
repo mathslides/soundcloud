@@ -48,7 +48,6 @@ export const getAllSongs = () => async (dispatch) => {
 export const getCurrentSong = (id) => async (dispatch) => {
   const res = await fetch(`/api/songs/${id}`);
   const data = await res.json();
-  //   console.log(data);
   dispatch(getOneSong(data));
   return res;
 };

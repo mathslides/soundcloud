@@ -6,7 +6,6 @@ router.post('/add-liked-song', async (req, res) => {
   const { songId } = req.body;
 
   try {
-    console.log("songId --------in adding liked songs", songId);
     const response = await addLikedSong(songId);
     return res.json(response);
 
@@ -31,7 +30,6 @@ router.get('/delete-liked-song/:songId', async (req, res) => {
   const { songId } = req.params;
 
   try {
-    console.log("songId in delete api ------", songId);
     const response = await removeLiked(songId);
     return res.json(response);
 

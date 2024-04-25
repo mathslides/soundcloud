@@ -7,16 +7,13 @@ const { secret, expiresIn } = jwtConfig;
 
 const setTokenCookie = (res, user) => {
   try {
-    console.log("in the auth setTokenCookie" , user);
     // Creating the token
     const token = jwt.sign(
       { data: user.toSafeObject() },
       secret,
       { expiresIn: parseInt(expiresIn) } // 2 hours
     );
-console.log("token created in the auth setTokenCookie", token);
-    const isProduction = process.env.NODE_ENV === "development";
-console.log("isProduction", isProduction);
+        const isProduction = process.env.NODE_ENV === "development";
     // Sets the token cookie
     res.cookie("token", token, {
       maxAge: expiresIn * 1000, // maxAge in milliseconds
@@ -35,7 +32,6 @@ console.log("isProduction", isProduction);
 const restoreUser = (req, res, next) => {
   // token parsed from cookies
   const { token } = req.cookies;
-  console.log("token in auth", token);
   return jwt.verify(token, secret, null, async (err, jwtPayload) => {
     if (err) {
       return next();

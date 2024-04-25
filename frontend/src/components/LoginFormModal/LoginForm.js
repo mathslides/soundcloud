@@ -126,7 +126,6 @@ export default function LoginFormPage({ closeModal }) {
       history.push("/dashboard");
       // closeModal(); // Close modal after successful login
     } catch (res) {
-      console.log("res", res);
       const data = await res.data.json();
       if (data && data.errors) setErrors(data.errors);
     }
@@ -149,7 +148,7 @@ export default function LoginFormPage({ closeModal }) {
         <h2 className="text-3xl font-bold mb-6 text-center">Welcome back!</h2>
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
           <button
-            type="button" 
+            type="button"
             onClick={demoSubmit}
             className="bg-blue-500 text-white px-8 py-3 rounded-md hover:bg-blue-600 transition duration-300 w-full"
           >

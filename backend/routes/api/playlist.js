@@ -7,7 +7,6 @@ router.post('/add-song-to-playlist', async (req, res) => {
   const { playlistId } = req.body;
 
   try {
-    console.log("playlistId", playlistId);
     const response = await addSongToPlaylist(playlistId);
     return res.json(response);
 

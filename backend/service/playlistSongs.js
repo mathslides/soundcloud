@@ -3,8 +3,6 @@ const db = require('../db/models');
 async function addSongToPlaylist(playlistId, songId) {
   try {
 
-    console.log("--------in the playlistsongs-------",);
-    console.log("playlistId", playlistId);
     // const playlist = await db.Playlist.findByPk(playlistId);
     // if (!playlist) {
     //   throw new Error('Playlist not found');

@@ -18,8 +18,6 @@ function Player() {
     const [audio, state, controls, ref] = useAudio({
         src: current?.audioFile
     });
-    // console.log("current in player", current);
-    // console.log("sidebar in player", sidebar);
 
     useEffect(() => {
         controls.play()

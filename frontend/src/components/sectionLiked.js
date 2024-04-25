@@ -5,7 +5,6 @@ import Title from "./Title";
 import SongItemLiked from "./songItemLiked";
 
 function SectionLiked({ title, more, items }) {
-    // console.log("items SectionLiked ", items);
     return (
 
         <section className="">

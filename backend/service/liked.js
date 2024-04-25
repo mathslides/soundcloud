@@ -4,7 +4,6 @@ const Liked = db.Liked;
 // Create Liked Entry
 async function addLikedSong( songId) {
   try {
-    console.log("songId---------in apis", songId);
     const liked = await Liked.create(songId);
     return liked;
   } catch (error) {
@@ -16,7 +15,6 @@ async function addLikedSong( songId) {
 async function getLikedSongsByUser() {
   try {
     const likedSongs = await Liked.findAll();
-    // console.log("likedSongs", JSON.stringify(likedSongs, null , 2));
     return likedSongs;
   } catch (error) {
     throw error;
@@ -26,7 +24,6 @@ async function getLikedSongsByUser() {
 // Delete Liked Entry
 async function removeLiked(songId) {
   try {
-    console.log("songId in removeLiked", songId);
     const likedEntry = await Liked.findOne({ where: { songId } });
     if (!likedEntry) {
       throw new Error('Liked entry not found');
