@@ -6,6 +6,7 @@ import LoginForm from "./LoginForm";
 import "./LoginForm.css";
 import { useSelector, useDispatch } from "react-redux";
 import { openLogin, closeLogin } from "../../store/modal";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 Modal.setAppElement(document.getElementById("root"));
 
@@ -22,32 +23,37 @@ const customStyles = {
 
 function LoginFormModal() {
   // const [showModal, setShowModal] = useState(false);
-
   const dispatch = useDispatch();
 
   const loginState = useSelector((state) => state.modal.loginShow);
 
   const closeModal = () => dispatch(closeLogin());
+  const history = useHistory();
 
+  const handleLogin = () => {
+    history.push("/login");
+
+    // setLoginModalOpen(true); // Open login modal
+  };
   return (
     <>
       <button
         id="signInBtn"
         className="nav-bar-btn"
-        onClick={() => dispatch(openLogin())}
+        onClick={handleLogin}
       >
         Sign In
       </button>
       <Modal
         isOpen={loginState}
         closeTimeoutMS={500}
-        onRequestClose={closeModal}
+        closeModal={closeModal}
         // style={customStyles}
         contentLabel="Login Modal"
         overlayClassName="OuterModal"
         className="InnerModal"
       >
-        <LoginForm />
+        <LoginForm  />
       </Modal>
     </>
   );

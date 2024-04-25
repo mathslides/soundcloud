@@ -10,19 +10,7 @@ import "./SplashNavigation.css";
 import logo from "./logo.png";
 
 function SplashNavigation({ isLoaded }) {
-  const sessionUser = useSelector((state) => state.session.user);
 
-  let sessionLinks;
-  if (sessionUser) {
-    sessionLinks = undefined;
-  } else {
-    sessionLinks = (
-      <div className="splash-navBtnContainer">
-        <LoginFormModal />
-        <SignupFormModal />
-      </div>
-    );
-  }
 
   return (
     <div className="splash-navbar">
@@ -34,7 +22,10 @@ function SplashNavigation({ isLoaded }) {
           </NavLink>
         </div>
 
-        {isLoaded && sessionLinks}
+        <div className="splash-navBtnContainer">
+          <LoginFormModal />
+          <SignupFormModal />
+        </div>
       </nav>
     </div>
   );

@@ -3,8 +3,8 @@ import "./SplashFooter.css";
 
 export default function SplashFooter() {
   return (
-    // <div id="sp-ft-container">
-      <div id="splash-footer-container">
+    <div id="sp-ft-container">
+      {/* <div id="splash-footer-container">
         <div id="splash-footer-list">
           <a
             className="splash-footer-content"
@@ -24,7 +24,7 @@ export default function SplashFooter() {
           </a>
           <a className="splash-footer-content">Meet The Creator</a>
         </div>
-      </div>
-    // </div>
+      </div> */}
+    </div>
   );
 }

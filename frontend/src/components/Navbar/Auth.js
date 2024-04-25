@@ -1,61 +1,56 @@
-import { Menu } from '@headlessui/react'
-import { Icon } from "Icons";
+import React, { useState } from "react";
+import { Icon } from '../../Icons';
+import { logout } from '../../store/session';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function Auth() {
-
     const user = {
         name: 'Tayfun Erbilen',
-        avatar: 'https://i.scdn.co/image/ab6775700000ee856fca122911ed9eec4ce60c1e'
-    }
+        avatar: 'https://i.scdn.co/image/ab6775700000ee856fca122911ed9eec4ce60c1e',
+    };
+    const loggedInUser = useSelector((state) => state.session.user);
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleLogout = () => {
+        dispatch(logout());
+        history.push('/');
+    };
+
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
 
     return (
-        <Menu as="nav" className={"relative"}>
-            {({ open }) => (
-                <>
-                    <Menu.Button className={`flex items-center h-8 rounded-3xl pr-2 ${open ? 'bg-active' : 'bg-black'} hover:bg-active`}>
-                        <img src={user.avatar} className={"w-8 h-8 rounded-full p-0.5 mr-2"} />
-                        <span className="text-sm font-semibold mr-2">{user.name}</span>
-                        <span className={open && 'rotate-180'}>
-                            <Icon size={16} name="downDir" />
-                        </span>
-                    </Menu.Button>
-                    <Menu.Items className={"absolute p-1 top-full right-0 w-48 bg-active rounded translate-y-2"}>
-                        <Menu.Item>
-                            {({ active }) => (
-                                <a
-                                    className={`h-10 flex justify-between items-center px-2 text-sm rounded ${active && 'bg-white bg-opacity-10'}`}
-                                    href="#"
-                                >
-                                    Account
-                                    <Icon size={16} name="external" />
-                                </a>
-                            )}
-                        </Menu.Item>
-                        <Menu.Item>
-                            {({ active }) => (
-                                <a
-                                    className={`h-10 flex items-center px-2 text-sm rounded ${active && 'bg-white bg-opacity-10'}`}
-                                    href="#"
-                                >
-                                    Profile
-                                </a>
-                            )}
-                        </Menu.Item>
-                        <Menu.Item>
-                            {({ active }) => (
-                                <a
-                                    className={`h-10 flex items-center px-2 text-sm rounded ${active && 'bg-white bg-opacity-10'}`}
-                                    href="#"
-                                >
-                                    Log out
-                                </a>
-                            )}
-                        </Menu.Item>
-                    </Menu.Items>
-                </>
+        <div className="relative">
+            <button
+                className={`flex items-center focus:outline-none rounded-full px-4 py-3 ${isOpen ? 'bg-gray-800 hover:bg-gray-700' : 'bg-black hover:bg-gray-800'
+                    }`}
+                onClick={toggleMenu}
+            >
+                <img src={user.avatar} className="w-8 h-8 rounded-full mr-2" alt="User Avatar" />
+                <span className="text-sm text-white font-semibold mr-2">{loggedInUser.username}</span>
+                <Icon size={16} name="downDir" className={`transform ${isOpen ? 'rotate-180' : ''} text-white`} />
+                {/* <Icon size={16} name="downDir" className={`transform ${isOpen ? 'rotate-180' : ''} text-white`} /> */}
+            </button>
+            {isOpen && (
+                <ul className="absolute top-full right-0 bg-black text-white shadow-md w-48 mt-1">
+                    <li className="hover:bg-gray-700 px-4 py-2">
+                        <a href="#">Profile</a>
+                    </li>
+                    <li className="hover:bg-gray-700 px-4 py-2">
+                        <a href="#">Account</a>
+                    </li>
+                    <li className="hover:bg-gray-700 px-4 py-2">
+                        <button onClick={handleLogout}>Log out</button>
+                    </li>
+                </ul>
             )}
-        </Menu>
-    )
+        </div>
+    );
 }
 
-export default Auth
+export default Auth;

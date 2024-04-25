@@ -54,18 +54,6 @@
   overflow: none;
 }
 
-.trending-cover-container {
-  /* display: flex; */
-  height: 215px;
-  width: 180px;
-  margin-left: 20px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  /* display: flex;
-  flex-wrap: wrap; */
-}
 
 .trending-cover {
   height: 180px;
@@ -73,14 +61,20 @@
 }
 
 .trending-cover-title {
-  font-size: 14px;
+  /* font-size: 14px;
+  text-decoration: none;   */
+  color: white;
   text-decoration: none;
+  font-size: 12px;
+  padding-left: 2%;
 }
 
 .trending-cover-artist {
   color: white;
   text-decoration: none;
   font-size: 12px;
+  padding-left: 2%;
+
 }
 
 .tr-container {
@@ -97,3 +91,40 @@
   width: 100%;
   align-items: center;
 }
+
+.trending-cover-container {
+  /* display: flex; */
+  height: 215px;
+  width: 180px;
+  margin-left: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+  /* display: flex;
+  flex-wrap: wrap; */
+}
+
+.trending-cover-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1; /* Place the overlay above the image */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease; /* Smooth transition for the overlay */
+}
+
+.trending-cover-container:hover::before {
+  opacity: 1; /* Show the overlay on hover */
+}
+
+.trending-cover-container:hover {
+  filter: brightness(90%); /* Increase brightness for a lighter effect */
+  transform: scale(1.05); /* Scale up the card for a focused effect */
+  transition: filter 0.3s ease, transform 0.3s ease; /* Add smooth transition effects */
+}
+

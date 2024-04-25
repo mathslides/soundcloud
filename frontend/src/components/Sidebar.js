@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 function Sidebar() {
   return (
-    <aside className="w-72 flex flex-col bg-black fixed h-full left-0 top-0 overflow-y-auto">
+    <aside className="w-1/6 flex flex-col bg-black fixed h-full left-0 top-0 overflow-y-auto">
       <a href="#" className="my-4 mx-auto">
         <img src="./recordlabellogo.png" alt="" className="h-16" style={{ width: "150px" }} />
       </a>
@@ -14,7 +14,7 @@ function Sidebar() {
             <NavLink
               activeClassName="bg-active text-white"
               exact
-              to={"/"}
+              to={"/dashboard"} // Updated route to "/home"
               className="h-12 flex items-center text-white  font-semibold text-link rounded hover:text-white px-6 my-1"
             >
               <span className="mr-3">
@@ -26,7 +26,7 @@ function Sidebar() {
           <li>
             <NavLink
               activeClassName="bg-active text-white"
-              to={"/search"}
+              to={"/dashboard"} // Updated route to "/home"
               className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
             >
               <span className="mr-3">
@@ -38,7 +38,7 @@ function Sidebar() {
           <li>
             <NavLink
               activeClassName="bg-active text-white"
-              to={"/albums"}
+              to={"/dashboard"} // Updated route to "/home"
               className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
             >
               <span className="mr-3">
@@ -50,7 +50,7 @@ function Sidebar() {
           <li>
             <NavLink
               activeClassName="bg-active text-white"
-              to={"/artists"}
+              to={"/dashboard"} // Updated route to "/home"
               className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
             >
               <span className="mr-3">
@@ -62,19 +62,19 @@ function Sidebar() {
           <li>
             <NavLink
               activeClassName="bg-active text-white"
-              to={"/genres"}
+              to={"/playlists"} // Updated route to "/home"
               className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
             >
               <span className="mr-3">
                 <FaMusic size={15} />
               </span>
-              Genres
+              Playlists
             </NavLink>
           </li>
           <li>
             <NavLink
               activeClassName="bg-active text-white"
-              to={"/liked"}
+              to={"/liked"} // Updated route to "/home"
               className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
             >
               <span className="mr-3">
@@ -86,7 +86,7 @@ function Sidebar() {
           <li>
             <NavLink
               activeClassName="bg-active text-white"
-              to={"/create-playlist"}
+              to={"/dashboard"}  // Updated route to "/upload"
               className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
             >
               <span className="mr-3">

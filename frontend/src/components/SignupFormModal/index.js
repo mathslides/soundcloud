@@ -6,6 +6,7 @@ import SignupForm from "./SignupForm";
 import "./SignupForm.css";
 import { useSelector, useDispatch } from "react-redux";
 import { openSignup, closeSignup } from "../../store/modal";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 Modal.setAppElement(document.getElementById("root"));
 
@@ -28,12 +29,20 @@ function SignupFormModal() {
 
   const closeModal = () => dispatch(closeSignup());
 
+
+  const history = useHistory();
+
+  const handleSignup = () => {
+    history.push("/register");
+
+  };
+
   return (
     <>
       <button
         id="createAccBtn"
         className="nav-bar-btn"
-        onClick={() => dispatch(openSignup())}
+        onClick={handleSignup}
       >
         Create Account
       </button> 

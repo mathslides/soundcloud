@@ -1,27 +1,35 @@
-import songs from "../../data/songs"
-import Section from "../Section"
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Container from "../Container";
+import Section from "../Section";
+import { getPlaylists } from "../../store/playlist";
 
 function Home() {
+	const dispatch = useDispatch();
+	const databaseSongs = useSelector((state) => state.songs.songs);
+
+	useEffect(() => {
+		dispatch(getPlaylists());
+	}, [dispatch]);
+
+	const limitedSongs = databaseSongs ? databaseSongs.slice(0, 10) : [];
+	if (!limitedSongs) {
+		return <div>Loading...</div>;
+	}
+
+	if (limitedSongs.length === 0) {
+		return <div>No songs found.</div>;
+	}
 
 	return (
-		<div className="grid gap-y-8">
+		<Container>
 			<Section
-				title="Recently played"
+				title="All Songs"
 				more="/blabla"
-				items={songs}
+				items={limitedSongs}
 			/>
-			<Section
-				title="Shows to try"
-				more="/blabla"
-				items={songs}
-			/>
-			<Section
-				title="Made For Tayfun Erbilen"
-				more="/blabla"
-				items={songs}
-			/>
-		</div>
-	)
+		</Container>
+	);
 }
 
-export default Home
+export default Home;

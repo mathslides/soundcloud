@@ -7,11 +7,11 @@ const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const { ValidationError } = require("sequelize");
 const bodyParser = require("body-parser");
-
 const { environment } = require("./config");
 const isProduction = environment === "production";
 
 const app = express();
+app.use(express.json({ limit: '100mb' })); 
 
 app.use(morgan("dev"));
 app.use(cookieParser());
@@ -40,6 +40,7 @@ app.use(
     },
   })
 );
+
 
 app.use(routes); // connect all the routes
 

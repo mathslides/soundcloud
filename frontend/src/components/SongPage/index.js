@@ -22,11 +22,6 @@ export default function SongPage({ isLoaded }) {
   const comments = useSelector((state) => state.comments);
   const user = useSelector((state) => state.session.user);
 
-  //   console.log("song ----> ", song);
-
-  //   console.log(songId);
-  // if (!song) return <Redirect to="/" />;
-
   return (
     <div>
       <Navigation isLoaded={isLoaded} />

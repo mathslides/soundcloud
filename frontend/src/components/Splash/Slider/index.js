@@ -1,176 +1,164 @@
-import React, { useState, useRef, useEffect } from "react";
-import "./Slider.css";
+// import React, { useState, useEffect } from "react";
+// import { Carousel } from "react-responsive-carousel";
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
+// import { SliderData } from "./SliderData";
+
+// const Slider = () => {
+//   const [currentSlide, setCurrentSlide] = useState(0);
+//   const [isContentVisible, setIsContentVisible] = useState(false);
+
+//   const slideChange = () => {
+//     setCurrentSlide((prevSlide) => (prevSlide === 0 ? 1 : 0));
+//     setIsContentVisible(false);
+//   };
+
+//   useEffect(() => {
+//     const timer = setInterval(() => {
+//       slideChange();
+//     }, 6000);
+
+//     return () => clearInterval(timer);
+//   }, []);
+
+//   useEffect(() => {
+//     const timeout = setTimeout(() => {
+//       setIsContentVisible(true); 
+//     }, 1000); 
+
+//     return () => clearTimeout(timeout);
+//   }, [currentSlide]); 
+//   return (
+//     <div className="splash-slider-container bg-gray-800">
+//       <Carousel
+//         selectedItem={currentSlide}
+//         showThumbs={false}
+//         showStatus={false}
+//         interval={6000} 
+//         onChange={(index) => setCurrentSlide(index)}
+//       >
+//         {SliderData.map((slide, index) => (
+//           <div key={index}>
+//             <img
+//               className="slider-img"
+//               src={slide.image}
+//               alt={`Slide ${index + 1}`}
+//             />
+//             {isContentVisible && (
+//               <div className="slide-content text-white px-10 py-8 absolute bottom-0 left-0 flex flex-col justify-center" style={{ transition: "opacity 1s ease-out" }}>
+//                 {index === 0 && (
+//                   <>
+//                     <span className="text-3xl font-bold mb-4">
+//                       Discover more with RecordLabel Go+
+//                     </span>
+//                     <p className="text-lg">
+//                       RecordLabel Go+ lets you listen offline, ad-free, with
+//                       over 150 million tracks — and growing.
+//                     </p>
+//                   </>
+//                 )}
+//                 {index === 1 && (
+//                   <>
+//                     <span className="text-3xl font-bold mb-4">
+//                       What's next in music is first on RecordLabel
+//                     </span>
+//                     <p className="text-lg">
+//                       Upload your first track and begin your journey.
+//                       RecordLabel gives you space to create, find your fans,
+//                       and connect with other artists.
+//                     </p>
+//                   </>
+//                 )}
+//               </div>
+//             )}
+//           </div>
+//         ))}
+//       </Carousel>
+//     </div>
+//   );
+// };
+
+// export default Slider;
+
+
+
+import React, { useState, useEffect } from "react";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { SliderData } from "./SliderData";
-import { useSelector, useDispatch } from "react-redux";
-import { openLogin, closeLogin } from "../../../store/modal";
-import Modal from "react-modal";
-import LoginForm from "../../LoginFormModal/LoginForm";
 
-export default function Slider() {
-  // const length = SliderData.length;
-  const image1 = useRef();
-  const image2 = useRef();
-  const slidebtn1 = useRef();
-  const slidebtn2 = useRef();
+const Slider = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isContentVisible, setIsContentVisible] = useState(false);
 
-  const dispatch = useDispatch();
-
-  const loginState = useSelector((state) => state.modal.loginShow);
-
-  const closeModal = () => dispatch(closeLogin());
-
-  // make seperate onClick to change slider to 0 and 1 depending on the button the user clicks
-  // console.log("AM I GETTING REWRITTEN?!");
-
-  const [slider, setSlider] = useState([]);
+  const slideChange = () => {
+    setCurrentSlide((prevSlide) => (prevSlide === 0 ? 1 : 0));
+    setIsContentVisible(false);
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
-      image1.current.classList.add("slide-add");
-      image2.current.classList.add("slide-add");
-      // console.log(image1.current.classList, image2.current.classList);
-      setTimeout(() => {
-        image1.current.classList.remove("slide-add");
-        image2.current.classList.remove("slide-add");
-        const sliderCopy = slider.slice();
-        const slideImg = sliderCopy.shift();
-        sliderCopy.push(slideImg);
-        setSlider(sliderCopy);
-      }, 600);
-    }, 4000);
+      slideChange();
+    }, 6000);
 
     return () => clearInterval(timer);
-  });
-
-  const slideChange = () => {
-    // console.log(image1.current.classList);
-    image1.current.classList.add("slide-add");
-    image2.current.classList.add("slide-add");
-    // console.log(image1.current.classList, image2.current.classList);
-    setTimeout(() => {
-      image1.current.classList.remove("slide-add");
-      image2.current.classList.remove("slide-add");
-      const sliderCopy = slider.slice();
-      // console.log("slider before push ----->", slider);
-      // console.log("sliderCopy ----->", sliderCopy);
-      const slideImg = sliderCopy.shift();
-      // console.log("img1", slideImg);
-      sliderCopy.push(slideImg);
-      setSlider(sliderCopy);
-      // console.log("images after push: ------ >", sliderCopy);
-    }, 600);
-  };
-
-  //! for left button
-  // const slideChange2 = () => {
-  //   // console.log(image1.current.classList);
-  //   image1.current.classList.add("slide-add2");
-  //   image2.current.classList.add("slide-add2");
-  //   // console.log(image1.current.classList, image2.current.classList);
-  //   setTimeout(() => {
-  //     image1.current.classList.remove("slide-add2");
-  //     image2.current.classList.remove("slide-add2");
-  //     const sliderCopy = slider.slice();
-  //     // console.log("slider before push ----->", slider);
-  //     // console.log("sliderCopy ----->", sliderCopy);
-  //     const slideImg = sliderCopy.pop();
-  //     // console.log("img1", slideImg);
-  //     sliderCopy.unshift(slideImg);
-  //     setSlider(sliderCopy);
-  //     // console.log("images after push: ------ >", sliderCopy);
-  //   }, 600);
-  // };
-
-  // switched to spans to see if that was the issue with a bug where the array would reset
-  useEffect(() => {
-    const imgs = [
-      <span key={0} ref={image1}>
-        <img
-          className="slider-img"
-          src={SliderData[0].image}
-          alt="studio picture"
-        />
-        <span>
-          <span id="slider1title">Discover more with RecordLabel Go+</span>
-          <p id="slider1text">
-          RecordLabel Go+ lets you listen offline, ad-free, with over 150
-            million tracks — and growing.
-          </p>
-          <span id="slider1btns">
-            <a
-              href="https://www.linkedin.com/in/veerkaran-singh-45b4a9190/"
-              target="_blank"
-              rel="noopener noreferrer"
-              id="slider1btn1"
-            >
-              Meet The Dev
-            </a>
-            <>
-              <button id="slider1btn2" onClick={() => dispatch(openLogin())}>
-                Try It Free Here
-              </button>
-              <Modal
-                isOpen={loginState}
-                closeTimeoutMS={500}
-                onRequestClose={closeModal}
-                // style={customStyles}
-                contentLabel="Login Modal"
-                overlayClassName="OuterModal"
-                className="InnerModal"
-              >
-                <LoginForm />
-              </Modal>
-            </>
-            {/* <button className="slidbtns" onClick={slideChange}></button>
-            <button className="slidbtns" onClick={slideChange}></button> */}
-          </span>
-        </span>
-      </span>,
-      <span ref={image2} key={1}>
-        <img
-          className="slider-img"
-          src={SliderData[1].image}
-          alt="studio picture"
-        />
-        <span className="slider2container">
-          <span id="slider1title">
-            What's next in music is first on RecordLabel
-          </span>
-          <p id="slider1text">
-            Upload your first track and begin your journey. RecordLabel gives you
-            space to create, find your fans, and connect with other artists.
-          </p>
-          <span id="slider1btns">
-            <a id="slider2btn2" onClick={() => dispatch(openLogin())}>
-              Start Uploading Today
-            </a>
-            {/* <button className="slidbtns" onClick={slideChange}></button>
-            <button className="slidbtns" onClick={slideChange}></button> */}
-          </span>
-        </span>
-      </span>,
-    ];
-    setSlider(imgs);
   }, []);
 
-  // const transform = `translateX(${slider * -50}%)`;
-  // style={{ transform }}
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsContentVisible(true);
+    }, 1000);
 
-  // useEffect(() => {}, [slideChange]);
+    return () => clearTimeout(timeout);
+  }, [currentSlide]);
 
   return (
-    <div className="splash-slider-container">
-      <div className="slide">{slider}</div>
-      <button
-        ref={slidebtn1}
-        className="slidbtns"
-        onClick={slideChange}
-      ></button>
-      <button
-        ref={slidebtn2}
-        className="slidbtns"
-        onClick={slideChange}
-      ></button>
+    <div className="bg-gray-800 relative">
+      <Carousel
+        selectedItem={currentSlide}
+        showThumbs={false}
+        showStatus={false}
+        interval={6000}
+        onChange={(index) => setCurrentSlide(index)}
+      >
+        {SliderData.map((slide, index) => (
+          <div key={index}>
+            <img
+              className="w-full h-auto"
+              src={slide.image}
+              alt={`Slide ${index + 1}`}
+            />
+            {isContentVisible && (
+              <div className="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 p-8">
+                {index === 0 && (
+                  <>
+                    <h2 className="text-white text-3xl font-bold mb-4">
+                      Discover more with RecordLabel Go+
+                    </h2>
+                    <p className="text-white text-lg">
+                      RecordLabel Go+ lets you listen offline, ad-free, with
+                      over 150 million tracks — and growing.
+                    </p>
+                  </>
+                )}
+                {index === 1 && (
+                  <>
+                    <h2 className="text-white text-3xl font-bold mb-4">
+                      What's next in music is first on RecordLabel
+                    </h2>
+                    <p className="text-white text-lg">
+                      Upload your first track and begin your journey.
+                      RecordLabel gives you space to create, find your fans,
+                      and connect with other artists.
+                    </p>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </Carousel>
     </div>
   );
-}
+};
+
+export default Slider;

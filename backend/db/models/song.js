@@ -12,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       audioFile: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       imgUrl: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       artist: {
@@ -28,11 +28,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
     },
-    {}
   );
   Song.associate = function (models) {
     // associations can be defined here
     Song.hasMany(models.Comment, { foreignKey: "songId" });
+    Song.hasMany(models.Liked, { foreignKey: "songId" });
+    Song.hasMany(models.PlaylistSongs, { foreignKey: "songId" });
   };
 
   Song.getCurrentSongById = async function (id) {

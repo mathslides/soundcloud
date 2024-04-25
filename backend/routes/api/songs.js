@@ -3,21 +3,23 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { Song } = require("../../db/models");
 const asyncHandler = require("express-async-handler");
-const { singleMulterUpload, singlePublicFileUpload } = require("../../awsS3");
+const { singleMulterUpload, singlePublicFileUpload, imageUpload } = require("../../awsS3");
+const db = require("../../db/models");
+const { getAllSongs, getTrendSongs, getOneSong, uploadFunction } = require("../../service/songs");
 
 // retrieving all the songs
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    const allSongs = await Song.findAll();
-    return res.json({ allSongs });
+    const allSongs = await getAllSongs()
+    return res.json(allSongs);
   })
 );
 //! order matters!
 router.get(
   "/trend",
   asyncHandler(async (req, res) => {
-    const trendSongs = await Song.findAll({ limit: 12 });
+    const trendSongs = await getTrendSongs();
     return res.json({ trendSongs });
   })
 );
@@ -26,35 +28,22 @@ router.get(
   "/:id",
   asyncHandler(async (req, res) => {
     const songId = req.params.id;
-    const currentSong = await Song.findByPk(songId);
+    const currentSong = await getOneSong(songId);
     return res.json({ currentSong });
   })
 );
 
-router.post(
-  "/upload",
-  singleMulterUpload("audioFile"),
-  asyncHandler(async (req, res) => {
-    const { title, artist, genre, album, imgUrl } = req.body;
 
-    const audioFile = await singlePublicFileUpload(req.file);
-    // console.log("::::::::::A", audioFile);
 
-    const newSong = await Song.create({
-      title,
-      artist,
-      genre,
-      audioFile,
-      imgUrl,
-      album,
-    });
+router.post("/upload",async (req, res) => {
+  try {
 
-    // console.log("::::::::::N", newSong);
-
-    if (newSong) {
-      return res.json({ newSong });
-    } else return res.json({});
-  })
-);
+    const response =await uploadFunction(req.body)
+    return res.json(response);
+  } catch (error) {
+    console.error("Error uploading song:", error);
+    return res.status(500).json({ error: "Error uploading song" });
+  }
+});
 
 module.exports = router;

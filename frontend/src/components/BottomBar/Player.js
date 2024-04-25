@@ -1,24 +1,25 @@
-import {Icon} from "Icons";
-import {useAudio, useFullscreen, useToggle} from 'react-use';
-import {secondsToTime} from "utils";
+import { useAudio, useFullscreen, useToggle } from 'react-use';
 import CustomRange from "../CustomRange";
-import {useEffect, useMemo, useRef} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {setControls, setPlaying, setSidebar} from "stores/player";
+import { useEffect, useMemo, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setControls, setCurrent, setPlaying, setSidebar } from "./../../store/player";
 import FullScreenPlayer from "../FullScreenPlayer";
+import { Icon } from '../../Icons';
+import { secondsToTime } from '../../utils';
 
 function Player() {
 
     const fsRef = useRef()
     const [show, toggle] = useToggle(false);
-    const isFullscreen = useFullscreen(fsRef, show, {onClose: () => toggle(false)});
+    const isFullscreen = useFullscreen(fsRef, show, { onClose: () => toggle(false) });
 
     const dispatch = useDispatch()
-    const {current, sidebar} = useSelector(state => state.player)
-
+    const { current, sidebar } = useSelector(state => state.player)
     const [audio, state, controls, ref] = useAudio({
-        src: current?.src
+        src: current?.audioFile
     });
+    // console.log("current in player", current);
+    // console.log("sidebar in player", sidebar);
 
     useEffect(() => {
         controls.play()
@@ -31,6 +32,8 @@ function Player() {
     useEffect(() => {
         dispatch(setControls(controls))
     }, [])
+
+
 
     const volumeIcon = useMemo(() => {
         if (state.volume === 0 || state.muted)
@@ -50,26 +53,26 @@ function Player() {
                         <div className="flex items-center mr-3">
                             {!sidebar && (
                                 <div className="w-14 h-14 mr-3 relative group flex-shrink-0">
-                                    <img src={current.image} alt=""/>
+                                    <img src={current.imgUrl} alt="" />
                                     <button
                                         onClick={() => dispatch(setSidebar(true))}
                                         className="w-6 h-6 bg-black opacity-0 group-hover:opacity-60 hover:!opacity-100 hover:scale-[1.06] rotate-90 rounded-full absolute top-1 right-1 flex items-center justify-center">
-                                        <Icon size={16} name="arrowLeft"/>
+                                        <Icon size={16} name="arrowLeft" />
                                     </button>
                                 </div>
                             )}
                             <div>
-                                <h6 className="text-sm line-clamp-1">{current.title}</h6>
+                                <h6 className="text-sm line-clamp-1 text-white">{current.title}</h6>
                                 <p className="text-[0.688rem] text-white text-opacity-70">{current.artist}</p>
                             </div>
                         </div>
                         <button
                             className="w-8 h-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
-                            <Icon size={16} name="heart"/>
+                            <Icon size={16} name="heart" />
                         </button>
                         <button
                             className="w-8 h-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
-                            <Icon size={16} name="pictureInPicture"/>
+                            <Icon size={16} name="pictureInPicture" />
                         </button>
                     </div>
                 )}
@@ -78,24 +81,24 @@ function Player() {
                 <div className="flex items-center gap-x-2">
                     <button
                         className="w-8 h-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
-                        <Icon size={16} name="shuffle"/>
+                        <Icon size={16} name="shuffle" />
                     </button>
                     <button
                         className="w-8 h-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
-                        <Icon size={16} name="playerPrev"/>
+                        <Icon size={16} name="playerPrev" />
                     </button>
                     <button
                         onClick={controls[state?.playing ? 'pause' : 'play']}
                         className="w-8 h-8 bg-white flex items-center justify-center text-black rounded-full hover:scale-[1.06]">
-                        <Icon size={16} name={state?.playing ? 'pause' : 'play'}/>
+                        <Icon size={16} name={state?.playing ? 'pause' : 'play'} />
                     </button>
                     <button
                         className="w-8 h-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
-                        <Icon size={16} name="playerNext"/>
+                        <Icon size={16} name="playerNext" />
                     </button>
                     <button
                         className="w-8 h-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
-                        <Icon size={16} name="repeat"/>
+                        <Icon size={16} name="repeat" />
                     </button>
                 </div>
                 <div className="w-full flex items-center mt-1.5 gap-x-2">
@@ -118,20 +121,20 @@ function Player() {
             <div className="min-w-[11.25rem] w-[30%] flex items-center justify-end">
                 <button
                     className="w-8 h-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
-                    <Icon size={16} name="lyrics"/>
+                    <Icon size={16} name="lyrics" />
                 </button>
                 <button
                     className="w-8 h-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
-                    <Icon size={16} name="queue"/>
+                    <Icon size={16} name="queue" />
                 </button>
                 <button
                     className="w-8 h-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
-                    <Icon size={16} name="device"/>
+                    <Icon size={16} name="device" />
                 </button>
                 <button
                     onClick={controls[state.muted ? 'unmute' : 'mute']}
                     className="w-8 h-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
-                    <Icon size={16} name={volumeIcon}/>
+                    <Icon size={16} name={volumeIcon} />
                 </button>
                 <div className="w-[5.813rem] max-w-full">
                     <CustomRange
@@ -148,17 +151,17 @@ function Player() {
                 <button
                     onClick={toggle}
                     className="w-8 h-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
-                    <Icon size={16} name="fullScreen"/>
+                    <Icon size={16} name="fullScreen" />
                 </button>
             </div>
             <div ref={fsRef}>
                 {isFullscreen && (
-                  <FullScreenPlayer
-                    toggle={toggle}
-                    state={state}
-                    controls={controls}
-                    volumeIcon={volumeIcon}
-                  />
+                    <FullScreenPlayer
+                        toggle={toggle}
+                        state={state}
+                        controls={controls}
+                        volumeIcon={volumeIcon}
+                    />
                 )}
             </div>
         </div>

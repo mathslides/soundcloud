@@ -7,7 +7,6 @@ module.exports = (sequelize, DataTypes) => {
       songId: DataTypes.INTEGER,
       userId: DataTypes.INTEGER,
     },
-    {}
   );
   Comment.associate = function (models) {
     // associations can be defined here

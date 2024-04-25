@@ -25,24 +25,13 @@ const getOneSong = (song) => {
 };
 
 export const postSong = (song) => async (dispatch) => {
-  const { title, artist, genre, albumName, albumCover, audioFile } = song;
-  console.log(song);
-  const formData = new FormData();
-  formData.append("title", title);
-  formData.append("artist", artist);
-  formData.append("genre", genre);
-  formData.append("album", albumName);
-  formData.append("imgUrl", albumCover);
-  formData.append("audioFile", audioFile);
-
-  console.log(formData);
-
+  const { title, artist, genre, albumName, imgUrl, audioFile } = song;
   const response = await csrfFetch(`/api/songs/upload`, {
     method: "POST",
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
     },
-    body: formData,
+    body: JSON.stringify({ title, artist, genre, albumName, imgUrl, audioFile }),
   });
   const data = await response.json();
   dispatch(getAllSongs());
@@ -52,7 +41,6 @@ export const postSong = (song) => async (dispatch) => {
 export const getAllSongs = () => async (dispatch) => {
   const res = await fetch("/api/songs");
   const data = await res.json();
-  //   console.log(data);
   dispatch(getSongs(data));
   return res;
 };
@@ -68,7 +56,6 @@ export const getCurrentSong = (id) => async (dispatch) => {
 export const getTrendingSongs = () => async (dispatch) => {
   const res = await fetch("/api/songs/trend");
   const data = await res.json();
-  // console.log("LABELL", data);
   dispatch(getTwelveSongs(data));
   return res;
 };

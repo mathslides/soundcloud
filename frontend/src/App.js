@@ -1,52 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch, Redirect } from "react-router-dom";
+import React from "react";
+import Layout from "./layouts";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { BrowserRouter } from 'react-router-dom';
+import configureStore from './store/index.js';
+import { restoreCSRF, csrfFetch } from "./store/csrf";
 import * as sessionActions from "./store/session";
-import Navigation from "./components/Navigation";
-import Splash from "./components/Splash";
-import Dashboard from "./components/Dashboard";
-import SongPage from "./components/SongPage";
-import UploadForm from "./components/UploadForm";
+import { persistStore } from "redux-persist";
 
-import { getAllSongs } from "./store/songs";
-import Sidebar from "./components/Sidebar";
-import Content from "./components/Content";
+
+
+const store = configureStore();
+const persistor = persistStore(store);
+
+if (process.env.NODE_ENV !== "production") {
+  restoreCSRF();
+
+  window.csrfFetch = csrfFetch;
+  window.store = store;
+  window.sessionActions = sessionActions;
+}
 
 function App() {
-  const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    dispatch(getAllSongs());
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  }, [dispatch]);
-
-  const songs = useSelector((state) => state.songsRed.songs);
-  // console.log(songs);
-
   return (
-    <div id="container" className="">
-      {isLoaded && (
-        <Switch>
-          <Route exact path="/">
-            <Splash isLoaded={isLoaded} />
-          </Route>
-          <Route path="/dashboard">
-            <Sidebar isLoaded={isLoaded} />
-            <Content/>
-          </Route>
-          <Route path="/songs/:songId">
-            <SongPage isLoaded={isLoaded} />
-          </Route>
-          <Route path="/upload">
-            <Navigation isLoaded={isLoaded} />
-            <UploadForm />
-          </Route>
-          <Route>
-            <Redirect to="/" />
-          </Route>
-        </Switch>
-      )}
-    </div>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Layout />
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
   );
 }
 

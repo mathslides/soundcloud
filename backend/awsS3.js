@@ -1,8 +1,10 @@
 const AWS = require("aws-sdk");
+const { log } = require("console");
 // name of your bucket here
 const soundwavevs = "soundwavevs";
 
 const multer = require("multer");
+const path = require("path");
 
 //  make sure to set environment variables in production for:
 //  AWS_ACCESS_KEY_ID
@@ -77,16 +79,37 @@ const retrievePrivateFile = (key) => {
 
 // --------------------------- Storage ------------------------
 
-const storage = multer.memoryStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, callback) {
-    callback(null, "");
+    callback(null, path.join(__dirname, 'uploads'));
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+
   },
 });
 
 const singleMulterUpload = (nameOfKey) =>
   multer({ storage: storage }).single(nameOfKey);
+
 const multipleMulterUpload = (nameOfKey) =>
   multer({ storage: storage }).array(nameOfKey);
+
+
+const imageStorage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, path.join(__dirname, 'images')); // Destination directory for storing image files
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname); // Filename for the image file
+  },
+  limits: {
+    fieldSize: 1024 * 1024 * 5 // Increase the field size limit to 5 MB (adjust as needed)
+  }
+});
+
+
+const imageUpload = (nameOfKey) => multer({ storage: imageStorage }).single(nameOfKey);
 
 module.exports = {
   s3,
@@ -97,4 +120,5 @@ module.exports = {
   retrievePrivateFile,
   singleMulterUpload,
   multipleMulterUpload,
+  imageUpload
 };
