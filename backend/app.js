@@ -13,6 +13,25 @@ const isProduction = environment === "production";
 const app = express();
 app.use(express.json({ limit: '100mb' })); 
 
+
+
+
+
+
+
+
+
+console.log('');
+console.log('----------- ENVIRONMENT VARIABLES');
+console.log('DATABASE_URL ',process.env.DATABASE_URL);
+console.log('DB_DIALECT   ',process.env.DB_DIALECT);
+console.log('DB_HOST      ',process.env.DB_HOST);
+console.log('DB_USERNAME  ',process.env.DB_USERNAME);
+console.log('DB_PASSWORD  ',process.env.DB_PASSWORD);
+console.log('DB_DATABASE  ',process.env.DB_DATABASE);
+console.log('DB_PORT      ',process.env.DB_PORT);
+console.log('DB_CLIENT    ',process.env.DB_CLIENT);
+
 app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
