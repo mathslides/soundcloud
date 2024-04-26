@@ -19,7 +19,7 @@ const getSongsInPlaylistSuccess = (songs) => ({
 // Thunk actions
 export const addToPlaylistSongs = (playlistId, songId) => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/api/playlistSongs/add`, {
+        const response = await csrfFetch(`/server/api/playlistSongs/add`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export const addToPlaylistSongs = (playlistId, songId) => async (dispatch) => {
 
 export const getSongsInPlaylist = (playlistId) => async (dispatch) => {
     try {
-        const response = await fetch(`/api/playlistSongs/getAll`);
+        const response = await fetch(`/server/api/playlistSongs/getAll`);
         const data = await response.json();
         dispatch(getSongsInPlaylistSuccess(data));
     } catch (error) {

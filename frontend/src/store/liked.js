@@ -30,7 +30,7 @@ const updateLikedSongSuccess = (likedSong) => ({
 // Thunk Actions
 export const addLikedSong = (songId) => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/api/likedSongs/add-liked-song`, {
+        const response = await csrfFetch(`/server/api/likedSongs/add-liked-song`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export const addLikedSong = (songId) => async (dispatch) => {
 
 export const getLikedSongs = () => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/api/likedSongs/get-all-liked-songs`);
+        const response = await csrfFetch(`/server/api/likedSongs/get-all-liked-songs`);
         const data = await response.json();
         dispatch(getLikedSongsSuccess(data));
         return data; // Optionally return data from the response
@@ -61,7 +61,7 @@ export const getLikedSongs = () => async (dispatch) => {
 
 export const deleteLikedSong = (songId) => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/api/likedSongs/delete-liked-song/${songId}`);
+        const response = await csrfFetch(`/server/api/likedSongs/delete-liked-song/${songId}`);
         const data = await response.json();
         dispatch({ type: DELETE_LIKED_SONG, payload: songId });
         return data; // Optionally return data from the response
@@ -73,7 +73,7 @@ export const deleteLikedSong = (songId) => async (dispatch) => {
 
 export const updateLikedSong = (likedSongId, updatedFields) => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/api/likedSongs/update-liked-song/${likedSongId}`, {
+        const response = await csrfFetch(`/server/api/likedSongs/update-liked-song/${likedSongId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

@@ -9,11 +9,11 @@ const apiRouter = require("./api");
 //   res.send("Hello World!");
 // });
 
-router.use("/api", apiRouter);
+router.use("/server/api", apiRouter);
 
 // Add a XSRF-TOKEN cookie in development
 if (process.env.NODE_ENV !== "production") {
-  router.get("/api/csrf/restore", (req, res) => {
+  router.get("/server/api/csrf/restore", (req, res) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());
     return res.json({});
   });
@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === "production") {
 
 // Add a XSRF-TOKEN cookie in development
 if (process.env.NODE_ENV !== "production") {
-  router.get("/api/csrf/restore", (req, res) => {
+  router.get("/server/api/csrf/restore", (req, res) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());
     res.status(201).json({});
   });

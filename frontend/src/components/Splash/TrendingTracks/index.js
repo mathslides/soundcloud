@@ -13,7 +13,7 @@ export default function TrendingTracks() {
     dispatch(getTrendingSongs());
   }, [dispatch]);
 
-  const trendingSongs = useSelector((state) => state.songs.trendingSongs);
+  const trendingSongs = useSelector((state) => state.songs?.trendingSongs);
 
   return (
     <div className="tr-container">
@@ -21,7 +21,7 @@ export default function TrendingTracks() {
         Hear what’s trending in the RecordLabel community
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
-        {trendingSongs?.trendSongs.map((song) => (
+        {trendingSongs?.trendSongs?.map((song) => (
           <div
             className={`relative rounded-lg overflow-hidden border border-transparent group transition-transform ease-in-out duration-300 transform ${hoveredSongId === song.id ? 'hover:-translate-y-1 hover:shadow-lg' : ''
               }`}

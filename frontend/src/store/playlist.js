@@ -30,7 +30,7 @@ const updatePlaylistSuccess = (playlist) => ({
 // Thunk actions
 export const addSongToPlaylist = (playlistId, songId) => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/api/playlist/add-song-to-playlist`, {
+        const response = await csrfFetch(`/server/api/playlist/add-song-to-playlist`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export const addSongToPlaylist = (playlistId, songId) => async (dispatch) => {
 
 export const getPlaylists = () => async (dispatch) => {
     try {
-        const response = await fetch(`/api/playlist/getAll`);
+        const response = await fetch(`/server/api/playlist/getAll`);
         const data = await response.json();
         dispatch(getPlaylistsSuccess(data));
     } catch (error) {
@@ -60,7 +60,7 @@ export const getPlaylists = () => async (dispatch) => {
 
 export const deletePlaylist = (playlistId) => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/api/playlists/${playlistId}`, {
+        const response = await csrfFetch(`/server/api/playlists/${playlistId}`, {
             method: "DELETE",
         });
         const data = await response.json();
@@ -74,7 +74,7 @@ export const deletePlaylist = (playlistId) => async (dispatch) => {
 
 export const updatePlaylist = (playlistId, updatedFields) => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/api/playlists/${playlistId}`, {
+        const response = await csrfFetch(`/server/api/playlists/${playlistId}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

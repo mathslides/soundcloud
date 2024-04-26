@@ -24,9 +24,9 @@ const Footer = () => {
                 <div>
                     <h3 className="text-xl font-bold mb-4">Connect With Us</h3>
                     <ul className="text-sm">
-                        <li>Email: Inteliwaretech@gmail.com</li>
-                        <li>Phone: +1234567890</li>
-                        <li>Address: 123 Street, G11, Islamabad</li>
+                        <li>Email: info@calisomnia.com</li>
+                        <li>Phone: +1 (123) 456 78</li>
+                        <li>Address: Los Angeles, California(CA), 90011</li>
                     </ul>
                 </div>
                 <div>

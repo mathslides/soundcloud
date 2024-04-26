@@ -10,13 +10,13 @@ const setComments = (comments) => {
 };
 
 export const getSongComments = (songId) => async (dispatch) => {
-  const response = await fetch(`/api/comments/${songId}`);
+  const response = await fetch(`/server/api/comments/${songId}`);
   const data = await response.json();
   dispatch(setComments(data.comments));
 };
 
 export const postComment = (songId, comment, userId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/comments/${songId}`, {
+  const response = await csrfFetch(`/server/api/comments/${songId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export const postComment = (songId, comment, userId) => async (dispatch) => {
 export const deleteComment = (songId, commentId, userId) => async (
   dispatch
 ) => {
-  const response = await csrfFetch(`/api/comments/delete`, {
+  const response = await csrfFetch(`/server/api/comments/delete`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export const deleteComment = (songId, commentId, userId) => async (
 export const updateComment = (commentId, songId, comment, userId) => async (
   dispatch
 ) => {
-  const response = await csrfFetch(`/api/comments/update`, {
+  const response = await csrfFetch(`/server/api/comments/update`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

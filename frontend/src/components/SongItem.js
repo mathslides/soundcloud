@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { FaPlay, FaPause, FaHeart, FaRegHeart, FaEllipsisV } from 'react-icons/fa';
@@ -21,11 +19,12 @@ function SongItem({ item }) {
 	const [newPlaylistName, setNewPlaylistName] = useState("");
 	const [error, setError] = useState("");
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-	const databaseSongs = useSelector((state) => state.playlists.playlists);
+	const databaseSongs = useSelector((state) => state.playlists?.playlists);
 	const likedState = useSelector((state) => state.likedSongs?.likedSongs);
 	const { session } = useSelector(state => state);
-	const userId = session.user.id;
-	const userPlaylists = databaseSongs.filter(playlist => playlist?.userId === userId);
+	const userId = session?.user?.id;
+	// const userPlaylists = databaseSongs?.filter(playlist => playlist.userId === userId);
+	const userPlaylists = Array.isArray(databaseSongs) ? databaseSongs.filter(playlist => playlist.userId === userId) : [];
 
 	// Check if the song is already liked
 	useEffect(() => {
@@ -180,23 +179,42 @@ function SongItem({ item }) {
 		}
 	}
 
+
+	const [isHovering, setIsHovering] = useState(false);
+
+	// Function to handle mouse enter
+	const handleMouseEnter = () => {
+		setIsHovering(true);
+	};
+
+	// Function to handle mouse leave
+	const handleMouseLeave = () => {
+		setIsHovering(false);
+	};
+
 	return (
 		<div>
 			<div
 				className="bg-gray-900 rounded-lg overflow-auto shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
 			>
-				<div className="relative">
+				<div className="relative"
+					onMouseEnter={() => handleMouseEnter()}
+					onMouseLeave={() => handleMouseLeave()}>
+
 					<NavLink to="/dashboard">
 						<img
 							src={item.imgUrl}
 							alt={item.title}
 							className={`w-full h-48 object-cover ${imageStyle()}`}
 						/>
-						<div className="absolute inset-0 flex items-center justify-center">
-							<div className="bg-green-600 rounded-full p-2" onClick={updateCurrent}>
-								{current.id === item.id && playing ? <FaPause className="text-white text-sm" /> : <FaPlay className="text-white text-sm" />}
+
+						{isHovering &&
+							<div className="absolute inset-0 flex items-center justify-center">
+								<div className="bg-green-600 rounded-full p-2" onClick={updateCurrent}>
+									{current.id === item.id && playing ? <FaPause className="text-white text-sm" /> : <FaPlay className="text-white text-sm" />}
+								</div>
 							</div>
-						</div>
+						}
 					</NavLink>
 				</div>
 				<div className="p-4">
