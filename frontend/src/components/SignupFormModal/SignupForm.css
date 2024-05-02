@@ -38,7 +38,9 @@
 }
 
 #createAccBtn {
-  background-color: lightseagreen;
+  /* background: #38a169;  */
+
+  background: #68d391; /* Change the background color to bg-green-400 */
   align-items: center;
   padding-top: 5px;
   border-radius: 5px;

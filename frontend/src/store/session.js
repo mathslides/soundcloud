@@ -1,3 +1,4 @@
+import { BASEURL } from "../constants";
 import { csrfFetch } from "./csrf";
 
 const SET_USER = "session/setUser";
@@ -34,7 +35,7 @@ export const login = (user) => async (dispatch) => {
 export const demoLogin = () => async (dispatch) => {
   const credential = "Demo";
   const password = "password";
-  const res = await csrfFetch("/server/api/session", {
+  const res = await fetch(`${BASEURL}/server/api/session`, {
     method: "POST",
     body: JSON.stringify({
       credential,

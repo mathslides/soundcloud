@@ -65,7 +65,7 @@ export default function Splash({ isLoaded }) {
                 Create account
               </button>
               <button
-                className="border border-white text-white hover:bg-gray-200 hover:text-black px-6 py-3 rounded-md transition duration-300"
+                className="bg-transparent border border-white text-white hover:bg-white hover:text-black px-6 py-3 rounded-md transition duration-300"
                 onClick={handleLogin}
               >
                 Sign in
@@ -74,8 +74,8 @@ export default function Splash({ isLoaded }) {
           </div>
         </div>
         <SplashFooter />
-        <Footer/>
-      
+        <Footer />
+
       </div>
 
     </div>

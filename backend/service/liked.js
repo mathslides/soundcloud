@@ -14,7 +14,17 @@ async function addLikedSong( songId) {
 // Get All Liked Entries for a User
 async function getLikedSongsByUser() {
   try {
-    const likedSongs = await Liked.findAll();
+    const likedSongs = await Liked.findAll({
+      include: [
+        {
+          model: db.Song,
+        },
+        {
+          model: db.User,
+        }
+      ],
+    });
+    // console.log("likedSongs --------",JSON.stringify(likedSongs, null, 2));
     return likedSongs;
   } catch (error) {
     throw error;

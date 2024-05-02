@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { FaPlay, FaPause, FaHeart, FaRegHeart, FaEllipsisV } from 'react-icons/fa';
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrent } from "../store/player";
+import { resetPlayer, setCurrent, setPlaying } from "../store/player";
 import { addSongToPlaylist } from "../store/playlist";
 import { Modal } from 'react-responsive-modal';
 import 'react-responsive-modal/styles.css';
@@ -25,22 +25,21 @@ function SongItem({ item }) {
 	const userId = session?.user?.id;
 	// const userPlaylists = databaseSongs?.filter(playlist => playlist.userId === userId);
 	const userPlaylists = Array.isArray(databaseSongs) ? databaseSongs.filter(playlist => playlist.userId === userId) : [];
-
 	// Check if the song is already liked
-	useEffect(() => {
-		const checkLikedStatus = async () => {
-			try {
-				// Check if the current song is in the liked list
-				const likedSongs = await dispatch(getLikedSongs());
-				const isLiked = likedSongs?.some(likedSong => likedSong.songId === item.id);
-				setIsLiked(isLiked);
-			} catch (error) {
-				console.error("Error fetching liked songs:", error);
-			}
-		};
+	// useEffect(() => {
 
-		checkLikedStatus();
-	}, [dispatch, isLiked]);
+
+	// 	checkLikedStatus();
+	// }, [dispatch, isLiked]);
+
+
+	useEffect(() => {
+		return () => {
+			dispatch(setCurrent(null)); // Reset current song to null
+			dispatch(setPlaying(false)); // Reset playing to false
+		};
+	}, []);
+
 
 	const imageStyle = () => {
 		switch (item.type) {
@@ -96,17 +95,33 @@ function SongItem({ item }) {
 		}
 	};
 
+
 	const updateCurrent = () => {
-		if (current.id === item.id) {
+		if (current && current.id === item.id) {
 			if (playing) {
-				controls.pause();
+				controls?.pause();
+				dispatch(setPlaying(false)); // Pause and set playing to false
 			} else {
-				controls.play();
+				controls?.play();
+				dispatch(setPlaying(true)); // Play and set playing to true
 			}
 		} else {
 			dispatch(setCurrent(item));
+			dispatch(setPlaying(true)); // Play and set playing to true for new song
 		}
-	}
+	};
+
+	// const updateCurrent = () => {
+	// 	if (current.id === item.id) {
+	// 		if (playing) {
+	// 			controls.pause();
+	// 		} else {
+	// 			controls.play();
+	// 		}
+	// 	} else {
+	// 		dispatch(setCurrent(item));
+	// 	}
+	// }
 
 	const handleDropdownToggle = () => {
 		setIsDropdownOpen(!isDropdownOpen);
@@ -211,7 +226,7 @@ function SongItem({ item }) {
 						{isHovering &&
 							<div className="absolute inset-0 flex items-center justify-center">
 								<div className="bg-green-600 rounded-full p-2" onClick={updateCurrent}>
-									{current.id === item.id && playing ? <FaPause className="text-white text-sm" /> : <FaPlay className="text-white text-sm" />}
+									{current?.id === item.id && playing ? <FaPause className="text-white text-sm" /> : <FaPlay className="text-white text-sm" />}
 								</div>
 							</div>
 						}
@@ -227,13 +242,13 @@ function SongItem({ item }) {
 								{isDropdownOpen && (
 									<div className="absolute right-0 mt-1 w-48 bg-black rounded-lg shadow-lg py-2 z-10">
 										<div
-											className="px-4 py-2 hover:bg-blue-900 cursor-pointer"
+											className="px-4 py-2 hover:bg-green-900 cursor-pointer"
 											onClick={() => handleDropdownItemClick("add-to-playlist")}
 										>
 											Add to Playlist
 										</div>
 										<div
-											className="px-4 py-2 hover:bg-blue-900 cursor-pointer"
+											className="px-4 py-2 hover:bg-green-900 cursor-pointer"
 											onClick={() => handleDropdownItemClick("option2")}
 										>
 											Option 2

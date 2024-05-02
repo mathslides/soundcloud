@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     current: false,
@@ -23,6 +23,10 @@ export const playerSlice = createSlice({
         setSidebar: (state, action) => {
             state.sidebar = action.payload
         },
+        resetPlayer: (state) => {
+            state.current = null;
+            state.playing = false;
+        },
     },
 })
 
@@ -30,7 +34,8 @@ export const {
     setControls,
     setCurrent,
     setPlaying,
-    setSidebar
+    setSidebar,
+    resetPlayer
 } = playerSlice.actions
 
 export default playerSlice.reducer

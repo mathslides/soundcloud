@@ -49,7 +49,7 @@ export default function TrendingTracks() {
         ))}
       </div>
       <div className="flex justify-center mt-8">
-        <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+        <button className="bg-green-400 hover:bg-green-500 text-white py-2 px-4 rounded">
           Explore trending playlists
         </button>
       </div>

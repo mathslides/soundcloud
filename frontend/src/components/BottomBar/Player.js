@@ -18,10 +18,18 @@ function Player() {
     const [audio, state, controls, ref] = useAudio({
         src: current?.audioFile
     });
+    useEffect(() => {
+        dispatch(setPlaying(false));
+    }, []);
 
     useEffect(() => {
-        controls.play()
-    }, [current])
+        if (current) {
+            controls.play();
+        } else {
+            // resetPlayer();
+        }
+    }, [current]);
+
 
     useEffect(() => {
         dispatch(setPlaying(state.playing))
@@ -30,8 +38,6 @@ function Player() {
     useEffect(() => {
         dispatch(setControls(controls))
     }, [])
-
-
 
     const volumeIcon = useMemo(() => {
         if (state.volume === 0 || state.muted)
@@ -42,16 +48,15 @@ function Player() {
             return 'volumeNormal'
         return 'volumeFull'
     }, [state.volume, state.muted])
-
     return (
         <div className="flex px-4 justify-between items-center h-full">
             <div className="min-w-[11.25rem] w-[30%]">
                 {current && (
                     <div className="flex items-center">
                         <div className="flex items-center mr-3">
-                            {!sidebar && (
+                            {sidebar && (
                                 <div className="w-14 h-14 mr-3 relative group flex-shrink-0">
-                                    <img src={current.imgUrl} alt="" />
+                                    <img src={current?.imgUrl} alt=" no image" />
                                     <button
                                         onClick={() => dispatch(setSidebar(true))}
                                         className="w-6 h-6 bg-black opacity-0 group-hover:opacity-60 hover:!opacity-100 hover:scale-[1.06] rotate-90 rounded-full absolute top-1 right-1 flex items-center justify-center">
@@ -86,10 +91,12 @@ function Player() {
                         <Icon size={16} name="playerPrev" />
                     </button>
                     <button
-                        onClick={controls[state?.playing ? 'pause' : 'play']}
+                        onClick={() => controls && controls[state?.playing ? 'pause' : 'play']()}
                         className="w-8 h-8 bg-white flex items-center justify-center text-black rounded-full hover:scale-[1.06]">
                         <Icon size={16} name={state?.playing ? 'pause' : 'play'} />
                     </button>
+
+
                     <button
                         className="w-8 h-8 flex items-center justify-center text-white text-opacity-70 hover:text-opacity-100">
                         <Icon size={16} name="playerNext" />

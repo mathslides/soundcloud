@@ -1,3 +1,4 @@
+import { BASEURL } from "../constants";
 import { csrfFetch } from "./csrf";
 
 const GET_ALL_SONGS = "songs/getAllSongs";
@@ -39,21 +40,21 @@ export const postSong = (song) => async (dispatch) => {
 };
 
 export const getAllSongs = () => async (dispatch) => {
-  const res = await fetch("/server/api/songs");
+  const res = await fetch(`${BASEURL}/server/api/songs`);
   const data = await res.json();
   dispatch(getSongs(data));
   return res;
 };
 
 export const getCurrentSong = (id) => async (dispatch) => {
-  const res = await fetch(`/server/api/songs/${id}`);
+  const res = await fetch(`${BASEURL}/server/api/songs/${id}`);
   const data = await res.json();
   dispatch(getOneSong(data));
   return res;
 };
 
 export const getTrendingSongs = () => async (dispatch) => {
-  const res = await fetch("/server/api/songs/trend");
+  const res = await fetch(`${BASEURL}/server/api/songs/trend`);
   const data = await res.json();
   dispatch(getTwelveSongs(data));
   return res;

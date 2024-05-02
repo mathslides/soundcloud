@@ -1,3 +1,4 @@
+import { BASEURL } from "../constants";
 import { csrfFetch } from "./csrf";
 
 const SET_COMMENTS = "comments/setComments";
@@ -10,7 +11,7 @@ const setComments = (comments) => {
 };
 
 export const getSongComments = (songId) => async (dispatch) => {
-  const response = await fetch(`/server/api/comments/${songId}`);
+  const response = await fetch(`${BASEURL}/server/api/comments/${songId}`);
   const data = await response.json();
   dispatch(setComments(data.comments));
 };

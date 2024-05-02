@@ -269,7 +269,7 @@ function UploadForm() {
           <div className="col-span-2 flex justify-end items-end">
             <button
               type="submit"
-              className="text-white py-1 px-3 border border-transparent rounded-md shadow-sm font-medium bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="text-white py-1 px-3 border border-transparent rounded-md shadow-sm font-medium bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
             >
               Submit
             </button>
@@ -299,29 +299,6 @@ function UploadForm() {
           </button>
         </div>
       </Modal>
-      {/* <Modal
-        open={isOpen}
-        onClose={handleCloseModal}
-        classNames={{
-          modal: 'absolute right-0 top-0 w-1/3  border-l border-gray-300',
-          overlay: 'bg-black bg-opacity-50',
-        }}
-      >
-        <div className="p-4 text-center bg-gray-800 text-white shadow-md rounded-lg">
-          <h2 className="text-2xl font-bold mb-4">Default Cover Images</h2>
-          <div className="grid grid-cols-3 gap-4">
-            <img src={defaultAlbum1} alt="Default Cover 1" className="w-32 h-32 rounded-lg object-cover cursor-pointer" onClick={() => setAlbumCoverBase64(defaultAlbum1)} />
-            <img src={defaultAlbum2} alt="Default Cover 2" className="w-32 h-32 rounded-lg object-cover cursor-pointer" onClick={() => setAlbumCoverBase64(defaultAlbum2)} />
-            <img src={defaultAlbum3} alt="Default Cover 3" className="w-32 h-32 rounded-lg object-cover cursor-pointer" onClick={() => setAlbumCoverBase64(defaultAlbum3)} />
-
-          </div>
-          <button type="button" className="mt-4 text-blue-500" onClick={handleCloseModal}>
-            Close
-          </button>
-        </div>
-      </Modal> */}
-
-
     </Container>
   );
 };

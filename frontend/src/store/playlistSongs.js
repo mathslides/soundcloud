@@ -1,3 +1,4 @@
+import { BASEURL } from "../constants";
 import { csrfFetch } from "./csrf";
 
 const ADD_SONG_TO_PLAYLIST = "playlistSongs/addSongToPlaylist";
@@ -38,7 +39,7 @@ export const addToPlaylistSongs = (playlistId, songId) => async (dispatch) => {
 
 export const getSongsInPlaylist = (playlistId) => async (dispatch) => {
     try {
-        const response = await fetch(`/server/api/playlistSongs/getAll`);
+        const response = await fetch(`${BASEURL}/server/api/playlistSongs/getAll`);
         const data = await response.json();
         dispatch(getSongsInPlaylistSuccess(data));
     } catch (error) {

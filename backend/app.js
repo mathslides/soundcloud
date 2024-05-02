@@ -7,8 +7,10 @@ const cookieParser = require("cookie-parser");
 const routes = require("./routes");
 const { ValidationError } = require("sequelize");
 const bodyParser = require("body-parser");
+const {  port } = require("./config");
 const { environment } = require("./config");
 const isProduction = environment === "production";
+const db = require("./db/models");
 
 const app = express();
 app.use(express.json({ limit: '100mb' })); 
@@ -18,10 +20,15 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-if (!isProduction) {
-  // use cors only in dev
-  app.use(cors());
-}
+// if (!isProduction) {
+//   // use cors only in dev
+//   app.use(cors());
+// }
+
+app.use(cors({
+  origin: '*',  // Adjust to your frontend origin
+  credentials: true, // Allow cookies for CSRF token
+}));
 
 // helmet helps set a variety of headers to better secure your app
 app.use(
@@ -31,15 +38,15 @@ app.use(
 );
 
 // setting csrf token up and creating req.csrfToken
-app.use(
-  csurf({
-    cookie: {
-      secure: isProduction,
-      sameSite: isProduction && "Lax",
-      httpOnly: true,
-    },
-  })
-);
+// app.use(
+//   csurf({
+//     cookie: {
+//       secure: isProduction,
+//       sameSite: isProduction && "Lax",
+//       httpOnly: true,
+//     },
+//   })
+// );
 
 
 app.use(routes); // connect all the routes
@@ -64,5 +71,20 @@ app.use((err, _req, res, _next) => {
     stack: isProduction ? null : err.stack,
   });
 });
+
+// Check the database connection before starting the app
+db.sequelize
+  .authenticate()
+  .then(() => {
+    console.log("Database connection success! Sequelize is ready to use...");
+
+    // Start listening for connections
+    app.listen(port, () => console.log(`Listening on port ${port}...`));
+  })
+  .catch((err) => {
+    console.log("Database connection failure.");
+    console.error(err);
+  });
+
 
 module.exports = app;

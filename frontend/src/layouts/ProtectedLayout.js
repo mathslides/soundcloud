@@ -13,7 +13,7 @@ function ProtectedLayout() {
 				<main className="overflow-auto">
 					<Views />
 				</main>
-				<div className="w-full">
+				<div className="w-full fixed bottom-0 left-0 bg-black text-white">
 					<BottomBar />
 				</div>
 			</div>
