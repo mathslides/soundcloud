@@ -1,12 +1,12 @@
 
 const express = require('express');
-const { addSongToPlaylist, getPlaylists } = require('../../service/playlists');
+const { createPlaylist, getPlaylists } = require('../../service/playlists');
 const router = express.Router();
 
-router.post('/add-song-to-playlist', async (req, res) => {
+router.post('/create-playlist', async (req, res) => {
   const { playlistId } = req.body;
   try {
-    const response = await addSongToPlaylist(playlistId);
+    const response = await createPlaylist(playlistId);
     return res.json(response);
 
   } catch (error) {

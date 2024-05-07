@@ -45,8 +45,9 @@ function SignupFormModal() {
         onClick={handleSignup}
       >
         Create Account
-      </button> 
+      </button>
       <Modal
+        width={800}
         isOpen={signupState}
         closeTimeoutMS={500}
         onRequestClose={closeModal}

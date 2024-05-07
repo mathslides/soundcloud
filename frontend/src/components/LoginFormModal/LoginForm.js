@@ -143,24 +143,18 @@ export default function LoginFormPage({ closeModal }) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-full">
-      <div className="bg-white rounded-lg shadow-md p-8 w-96">
-        <h2 className="text-3xl font-bold mb-6 text-center">Welcome back!</h2>
-        <form onSubmit={handleSubmit} className="flex flex-col items-center">
-          <button
-            type="button"
-            onClick={demoSubmit}
-            className="bg-blue-500 text-white px-8 py-3 rounded-md hover:bg-blue-600 transition duration-300 w-full"
-          >
-            Demo Log In
-          </button>
-          <div className="mb-4 text-gray-600">or</div>
+    <div className="flex  items-center justify-center h-full pt-36">
+      <div className="bg-white rounded-2xl shadow-md p-8 w-1/3">
+        <h2 className="text-3xl font-bold  text-center">Welcome back!</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center">Login</h2>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-1.5 items-center">
+
           <input
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
-            placeholder="Email address or username"
-            className="border border-gray-400 rounded-md px-4 py-2 w-full mb-4 focus:outline-none focus:border-blue-500"
+            placeholder="Email or username"
+            className="bg-gray-100 text-white  rounded-md px-4 py-2 w-full mb-4 focus:outline-none focus:border-blue-500"
             required
           />
           <input
@@ -168,12 +162,12 @@ export default function LoginFormPage({ closeModal }) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            className="border border-gray-400 rounded-md px-4 py-2 w-full mb-4 focus:outline-none focus:border-blue-500"
+            className="bg-gray-100 text-white  rounded-md px-4 py-2 w-full mb-4 focus:outline-none focus:border-blue-500"
             required
           />
           <button
             type="submit"
-            className="bg-blue-500 text-white px-8 py-3 rounded-md hover:bg-blue-600 transition duration-300 w-full"
+            className="block w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
           >
             Log In
           </button>
@@ -185,9 +179,12 @@ export default function LoginFormPage({ closeModal }) {
             Back
           </button>
         </form>
-        <Link to="/register" className="text-blue-500 mt-2 hover:text-blue-800">
-          Sign Up
-        </Link>
+        <div className="flex justify-center tems-center pt-2">
+          <Link to="/register" className="text-blue-500 mt-2 hover:text-blue-800">
+            Create an account
+          </Link>
+        </div>
+
         {errors.length > 0 && (
           <ul className="text-red-500 mt-4">
             {errors.map((error, idx) => (

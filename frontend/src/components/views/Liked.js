@@ -5,7 +5,6 @@ import SectionLiked from "../sectionLiked";
 
 function Liked() {
     const databaseSongs = useSelector((state) => state.likedSongs?.likedSongs);
-    // Handle null and undefined scenarios
     if (!databaseSongs) {
         return (
             <Container>

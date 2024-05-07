@@ -2,14 +2,14 @@
 import { BASEURL } from "../constants";
 import { csrfFetch } from "./csrf";
 
-const ADD_SONG_TO_PLAYLIST = "playlists/addSongToPlaylist";
+const CREATE_PLAYLIST = "playlists/createPlaylist";
 const GET_PLAYLISTS = "playlists/getPlaylists";
 const DELETE_PLAYLIST = "playlists/deletePlaylist";
 const UPDATE_PLAYLIST = "playlists/updatePlaylist";
 
 // Action creators
 const addSongToPlaylistSuccess = (playlists) => ({
-    type: ADD_SONG_TO_PLAYLIST,
+    type: CREATE_PLAYLIST,
     playlists,
 });
 
@@ -29,9 +29,9 @@ const updatePlaylistSuccess = (playlist) => ({
 });
 
 // Thunk actions
-export const addSongToPlaylist = (playlistId, songId) => async (dispatch) => {
+export const createPlaylist = (playlistId, songId) => async (dispatch) => {
     try {
-        const response = await csrfFetch(`/server/api/playlist/add-song-to-playlist`, {
+        const response = await csrfFetch(`/server/api/playlist/create-playlist`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -101,7 +101,7 @@ const playlistsReducer = (state = initialState, action) => {
                 ...state,
                 playlists: action.playlist,
             };
-        case ADD_SONG_TO_PLAYLIST:
+        case CREATE_PLAYLIST:
             return {
                 ...state,
                 playlists: [...state.playlists, action.playlist],

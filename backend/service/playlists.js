@@ -1,7 +1,7 @@
 
 const db = require('../db/models');
 
-async function addSongToPlaylist(playlistId) {
+async function createPlaylist(playlistId) {
   try {
     // const playlist = await Playlist.findByPk(playlistId);
     // if (!playlist) {
@@ -58,7 +58,7 @@ async function updatePlaylist(playlistId, updatedFields) {
 }
 
 module.exports = {
-  addSongToPlaylist,
+  createPlaylist,
   getPlaylists,
   deletePlaylist,
   updatePlaylist,

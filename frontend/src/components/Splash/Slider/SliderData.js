@@ -1,10 +1,11 @@
-// import sliderImg1 from "./sliderImg1.png";
-// import sliderImg2 from "./sliderImg2.png";
+import sliderImg1 from "./sliderImg1.png";
+import sliderImg2 from "./sliderImg2.png";
+import morien from "./Moreni.png";
 
 export const SliderData = [
   {
-    image:
-      "https://a-v2.sndcdn.com/assets/images/sc_landing_header_web_b-447230ef.jpg",
+    image: morien
+    // "https://a-v2.sndcdn.com/assets/images/sc_landing_header_web_b-447230ef.jpg",
   },
   {
     image:

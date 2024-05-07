@@ -51,7 +51,7 @@ export default function Splash({ isLoaded }) {
         <CreatorSplash />
       </div>
       <div className="py-12">
-        <div className="container mx-auto">
+        <div className="container mx-auto bg-gray-800 p-8 rounded-lg shadow-lg flex flex-col items-center mb-16">
           <div className="text-center text-white">
             <div className="text-4xl mb-6 font-bold">Thanks for listening. Now join in.</div>
             <p className="text-lg mb-8">
@@ -73,7 +73,7 @@ export default function Splash({ isLoaded }) {
             </div>
           </div>
         </div>
-        <SplashFooter />
+        {/* <SplashFooter /> */}
         <Footer />
 
       </div>

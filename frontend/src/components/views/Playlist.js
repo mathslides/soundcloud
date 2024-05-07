@@ -4,24 +4,20 @@ import Container from "../Container";
 import SectionPlaylist from "../SectionPlaylist";
 import { getAllSongs } from "../../store/songs";
 import { getPlaylists } from "../../store/playlist";
+import { getSongsInPlaylist } from "../../store/playlistSongs";
 
 function Playlists() {
     const playlistSongs = useSelector((state) => state.playlists.playlists);
     const dispatch = useDispatch();
 
-
     useEffect(() => {
         if (!playlistSongs || playlistSongs?.length === 0) {
-
             dispatch(getPlaylists());
         }
-    }, [playlistSongs, playlistSongs]);
-
+    }, [playlistSongs]);
     if (!playlistSongs) {
         return <div>Loading...</div>;
     }
-
-
     if (playlistSongs.length === 0) {
         return (
             <Container>
@@ -38,10 +34,10 @@ function Playlists() {
         <Container>
             {playlistSongs.map((playlist) => (
                 <SectionPlaylist
-                    key={playlist.id}
-                    title={playlist.name}
-                    more={`/playlist/${playlist.id}`} // Example link, replace with actual link
-                    items={[playlist]} // Pass the playlist as an array since SectionPlaylist expects an array
+                    key={playlist?.id}
+                    title={playlist?.name}
+                    more={`/playlist/${playlist?.id}`}
+                    items={[playlist]}
                 />
             ))}
         </Container>

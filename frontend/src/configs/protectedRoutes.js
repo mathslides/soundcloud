@@ -43,11 +43,11 @@ export const protectedRoutes = [
 
     },
 
-    // {
-    //     key: "songs",
-    //     path: "/songs/:songId",
-    //     component: React.lazy(() =>  import("./components/BottomBar.js")),
-    // },
+    {
+        key: "createplaylist",
+        path: "/createplaylist",
+        component: React.lazy(() => import("../components/views/CreatePlaylist.js")),
+    },
     //   {
     //     key: "logout",
     //     path: "/logout",

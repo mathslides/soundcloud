@@ -6,7 +6,7 @@ function Sidebar() {
   return (
     <aside className="w-1/6 flex flex-col bg-black fixed h-full left-0 top-0 overflow-y-auto">
       <a href="#" className="my-4 mx-auto">
-        <img src="./recordlabellogo.png" alt="" className="h-16" style={{ width: "150px" }} />
+        <img src="./calisomniaLogo.png" alt="logo" className="h-11" style={{ width: "160px" }} />
       </a>
       <nav className="px-4">
         <ul className="flex flex-col">
@@ -86,7 +86,7 @@ function Sidebar() {
           <li>
             <NavLink
               activeClassName="bg-active text-white"
-              to={"/dashboard"}  // Updated route to "/upload"
+              to={"/createplaylist"}  // Updated route to "/upload"
               className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
             >
               <span className="mr-3">

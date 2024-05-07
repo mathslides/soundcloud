@@ -1,16 +1,22 @@
-import React, { useState } from "react";
-import { FaPlay, FaPause, FaHeart, FaRegHeart } from 'react-icons/fa';
+import React, { useEffect, useState } from "react";
+import { FaPlay, FaPause, FaHeart, FaRegHeart, FaSlideshare } from 'react-icons/fa';
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrent } from "../store/player";
 import 'react-responsive-modal/styles.css';
+import { getSongsInPlaylist } from "../store/playlistSongs";
 
 function SongItemPlaylist({ item }) {
-	const { current, playing, controls } = useSelector(state => state.player);
 	const dispatch = useDispatch();
+	const { current, playing, controls } = useSelector(state => state.player);
 	const playlistSongs = useSelector(state => state.playlistSongs.playlistSongs);
-	const songsForPlaylist = playlistSongs.filter(song => song.playlistId === item.id);
-	const [hoveredIndex, setHoveredIndex] = useState(-1);
+	const songsForPlaylist = playlistSongs.filter(song => song.playlistId === item?.id);
+	const [hoveredIndex, setHoveredIndex] = useState(null);
 
+	useEffect(() => {
+		if (!playlistSongs || playlistSongs?.length === 0) {
+			dispatch(getSongsInPlaylist());
+		}
+	}, [playlistSongs]);
 
 	const updateCurrent = (song) => {
 		if (!current || current.id !== song.id) {
@@ -20,16 +26,18 @@ function SongItemPlaylist({ item }) {
 		}
 	};
 
-
 	const handleMouseEnter = (index) => {
 		setHoveredIndex(index);
 	};
+
 	const handleMouseLeave = () => {
-		setHoveredIndex(-1);
+		setHoveredIndex(null);
 	};
 
 	const handleLike = (event, songId) => {
-	}
+		// Handle like functionality
+	};
+
 	return (
 		<div className="grid text-white grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 relative bg-gray-900 rounded-lg overflow-hidden shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
 			{songsForPlaylist.map((songItem, index) => (
@@ -51,11 +59,7 @@ function SongItemPlaylist({ item }) {
 									e.stopPropagation();
 									updateCurrent(songItem?.Song);
 								}}>
-									{playing ? (
-										<FaPause className="text-white text-sm" />
-									) : (
-										<FaPlay className="text-white text-sm" />
-									)}
+									{current?.id === songItem.Song.id && playing ? <FaPause className="text-white text-sm" /> : <FaPlay className="text-white text-sm" />}
 								</div>
 							</div>
 						)}
@@ -80,4 +84,3 @@ function SongItemPlaylist({ item }) {
 }
 
 export default SongItemPlaylist;
-

@@ -7,7 +7,7 @@ import LoginFormModal from "../../LoginFormModal";
 import SignupFormModal from "../../SignupFormModal";
 
 import "./SplashNavigation.css";
-import logo from "./logo.png";
+// import logo from "./calisomniaLogo.png";
 
 function SplashNavigation({ isLoaded }) {
 
@@ -16,10 +16,10 @@ function SplashNavigation({ isLoaded }) {
     <div className="splash-navbar">
       <nav id="splash-nav">
         <div id="splash-logo">
-          <img id="splash-imgLogo" src={logo} />
-          <NavLink id="splash-homeBtn" exact to="/">
+          <img id="splash-imgLogo" src="./logoforHeader.png" />
+          {/* <NavLink id="splash-homeBtn" exact to="/">
             RECORDLABEL
-          </NavLink>
+          </NavLink> */}
         </div>
 
         <div className="splash-navBtnContainer">

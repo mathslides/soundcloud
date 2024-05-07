@@ -12,7 +12,7 @@ function SectionPlaylist({ title, more, items }) {
             <Title title={title} more={more} />
             <div className="text-white gap-4">
                 {items.map(item => (
-                    <SongItemPlaylist item={item} key={item.id} />
+                    <SongItemPlaylist item={item} key={item?.id} />
                 ))}
             </div>
         </section>

@@ -9,7 +9,8 @@ function SongItemLiked() {
     const { current, playing, controls } = useSelector(state => state.player);
     const likedSongs = useSelector(state => state.likedSongs?.likedSongs);
     const dispatch = useDispatch();
-    const [hoveredIndex, setHoveredIndex] = useState(-1);
+    const [hoveredIndex, setHoveredIndex] = useState(null);
+
     const updateCurrent = (song) => {
         if (!current || current.id !== song.id) {
             dispatch(setCurrent(song));
@@ -24,6 +25,13 @@ function SongItemLiked() {
             }
         }
     };
+    const handleMouseEnter = (index) => {
+        setHoveredIndex(index);
+    };
+
+    const handleMouseLeave = () => {
+        setHoveredIndex(null);
+    };
     const handleLike = (event, songId) => {
     };
 
@@ -33,8 +41,8 @@ function SongItemLiked() {
                 <div
                     key={likedSong?.id} // Use a unique identifier as the key prop
                     className={`relative bg-gray-900 rounded-lg overflow-hidden shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg ${hoveredIndex === index ? 'hovered' : ''}`}
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(-1)}
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onMouseLeave={() => handleMouseLeave()}
                 >
                     <div>
                         <img
@@ -45,14 +53,11 @@ function SongItemLiked() {
                         {hoveredIndex === index && (
                             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
                                 <div className="bg-green-600 rounded-full p-2" onClick={(e) => {
-                                    e.stopPropagation(); // Prevent parent div click
+                                    e.stopPropagation();
                                     updateCurrent(likedSong?.Song);
                                 }}>
-                                    {playing ? (
-                                        <FaPause className="text-white text-sm" />
-                                    ) : (
-                                        <FaPlay className="text-white text-sm" />
-                                    )}
+                                    {current?.id === likedSong.Song.id && playing ? <FaPause className="text-white text-sm" /> : <FaPlay className="text-white text-sm" />}
+
                                 </div>
                             </div>
                         )}
