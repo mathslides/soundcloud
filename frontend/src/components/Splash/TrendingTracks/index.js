@@ -43,7 +43,7 @@ export default function TrendingTracks() {
   return (
     <div className="tr-container">
       <h2 className="text-white text-2xl font-bold mb-10 mt-12 text-center">
-        Hear what’s trending in the RecordLabel community
+        Hear what’s trending in the Calisomnia community
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-4 p-8">
         {trendingSongs?.trendSongs?.map((song) => (

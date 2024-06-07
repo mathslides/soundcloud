@@ -14,7 +14,6 @@ function Views() {
 
     const isAuthenticated = useSelector((state) => !!state.session.user);
     const [isLoaded, setIsLoaded] = useState(false);
-    console.log("isAuthenticated-----------", isAuthenticated);
 
     return (
         <Router>

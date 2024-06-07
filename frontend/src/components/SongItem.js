@@ -29,7 +29,8 @@ function SongItem({ item }) {
 	const [isLiked, setIsLiked] = useState(likedSongs.some(song => song?.Song?.id === item?.id));
 	useEffect(() => {
 		setIsLiked(likedSongs.some(song => song?.songId === item?.id));
-	}, [likedSongs, item?.id]);
+	}, [dispatch]);
+	// }, [likedSongs, item?.id]);
 
 
 
@@ -44,6 +45,8 @@ function SongItem({ item }) {
 			dispatch(getLikedSongs(userId));
 		}
 	}, [dispatch, userId]);
+
+
 	useEffect(() => {
 		return () => {
 			dispatch(setCurrent(null));

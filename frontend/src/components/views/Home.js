@@ -21,7 +21,7 @@ function Home() {
 			dispatch(getPlaylists());
 		}
 
-	}, [databaseSongs, playlistSongs]);
+	}, []);
 
 	useEffect(() => {
 		fetchSongs()

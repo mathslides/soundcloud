@@ -18,7 +18,7 @@ function SongItemLiked() {
     useEffect(() => {
         dispatch(getLikedSongs());
 
-    }, [loggedInUser]);
+    }, [dispatch]);
 
     const [hoveredIndex, setHoveredIndex] = useState(null);
 
