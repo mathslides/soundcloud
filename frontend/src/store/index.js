@@ -10,6 +10,9 @@ import playerReducer from './player';
 import playlistsReducer from './playlist';
 import playlistSongsReducer from './playlistSongs';
 import likedReducer from './liked';
+import emailVerificationReducer from './emailVerification';
+import usersReducer from './user';
+import sessionSlice from './sessionSlice';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -19,7 +22,11 @@ const rootReducer = combineReducers({
   player: playerReducer,
   playlists: playlistsReducer,
   playlistSongs: playlistSongsReducer,
-  likedSongs: likedReducer
+  likedSongs: likedReducer,
+  emailVerification: emailVerificationReducer,
+  users: usersReducer,
+  sessionSlice: sessionSlice,
+
 
 });
 
@@ -28,7 +35,7 @@ const persistConfig = {
   storage,
   keyPrefix: "",
   // Optionally, whitelist specific reducers to be persisted
-  whitelist: ['session', 'player', 'comments', 'songs', 'csrf', 'playlists', 'playlistSongs', 'likedSongs']
+  whitelist: ['session', 'player', 'comments', 'songs', 'csrf', 'playlists', 'playlistSongs', 'likedSongs', 'emailVerification', 'users', 'sessionSlice']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

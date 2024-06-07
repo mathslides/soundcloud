@@ -7,6 +7,7 @@ import configureStore from './store/index.js';
 import { restoreCSRF, csrfFetch } from "./store/csrf";
 import * as sessionActions from "./store/session";
 import { persistStore } from "redux-persist";
+import Views from "./components/index.js";
 
 
 
@@ -20,13 +21,13 @@ if (process.env.NODE_ENV !== "production") {
   window.store = store;
   window.sessionActions = sessionActions;
 }
-
+//replaced layout with views
 function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <Layout />
+          <Views />
         </BrowserRouter>
       </PersistGate>
     </Provider>

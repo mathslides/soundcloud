@@ -1,19 +1,26 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Container from "../Container";
 import SectionLiked from "../sectionLiked";
+import LoaderSpinner from "../Spinner";
+import { getLikedSongs } from "../../store/liked";
 
 function Liked() {
-    const databaseSongs = useSelector((state) => state.likedSongs?.likedSongs);
-    if (!databaseSongs) {
+    const loggedInUser = useSelector((state) => state.session?.user?.id);
+    const likedSongs = useSelector((state) => state.likedSongs?.likedSongs);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getLikedSongs());
+    }, [loggedInUser]);
+
+    if (!likedSongs) {
         return (
-            <Container>
-                <div>Loading...</div>
-            </Container>
+            <LoaderSpinner />
         );
     }
 
-    if (databaseSongs.length === 0) {
+    if (likedSongs.length === 0) {
         return (
             <Container>
                 <div className="flex items-center justify-center h-full py-80 text-white">
@@ -32,7 +39,7 @@ function Liked() {
             <SectionLiked
                 title="Liked Songs"
                 more="/blabla"
-            // items={databaseSongs}
+            // items={likedSongs}
             />
         </Container>
     );

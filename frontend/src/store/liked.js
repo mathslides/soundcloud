@@ -7,24 +7,24 @@ const DELETE_LIKED_SONG = "liked/deleteLikedSong";
 const UPDATE_LIKED_SONG = "liked/updateLikedSong";
 
 // Action Creators
-const addLikedSongSuccess = (likedSong) => ({
+const addLikedSongSuccess = (payload) => ({
     type: ADD_LIKED_SONG,
-    likedSong,
+    payload,
 });
 
-const getLikedSongsSuccess = (likedSongs) => ({
+const getLikedSongsSuccess = (payload) => ({
     type: GET_LIKED_SONGS,
-    likedSongs,
+    payload,
 });
 
-const deleteLikedSongSuccess = (likedSongId) => ({
+const deleteLikedSongSuccess = (payload) => ({
     type: DELETE_LIKED_SONG,
-    likedSongId,
+    payload,
 });
 
-const updateLikedSongSuccess = (likedSong) => ({
+const updateLikedSongSuccess = (payload) => ({
     type: UPDATE_LIKED_SONG,
-    likedSong,
+    payload,
 });
 
 // Thunk Actions
@@ -38,7 +38,7 @@ export const addLikedSong = (songId) => async (dispatch) => {
             body: JSON.stringify({ songId }),
         });
         const data = await response.json();
-        dispatch(addLikedSongSuccess(data.likedSong));
+        dispatch(addLikedSongSuccess(data));
         return data;
     } catch (error) {
         console.error("Error adding liked song:", error);
@@ -63,7 +63,7 @@ export const deleteLikedSong = (songId) => async (dispatch) => {
     try {
         const response = await csrfFetch(`/server/api/likedSongs/delete-liked-song/${songId}`);
         const data = await response.json();
-        dispatch({ type: DELETE_LIKED_SONG, payload: songId });
+        dispatch(deleteLikedSongSuccess(songId));
         return data; // Optionally return data from the response
     } catch (error) {
         console.error('Error deleting liked song:', error);
@@ -98,31 +98,24 @@ const likedReducer = (state = initialState, action) => {
         case GET_LIKED_SONGS:
             return {
                 ...state,
-                likedSongs: action.likedSongs,
+                likedSongs: action.payload,
             };
         case ADD_LIKED_SONG:
             return {
                 ...state,
-                likedSongs: [...state.likedSongs, action.likedSong],
+                likedSongs: [...state.likedSongs, action.payload],
             };
-        // case DELETE_LIKED_SONG:
-        //     // Filter out the deleted liked song
-        //     return {
-        //         ...state,
-        //         likedSongs: state.likedSongs.filter((likedSong) => likedSong?.id !== action.payload),
-        //     };
         case DELETE_LIKED_SONG:
             return {
                 ...state,
-                likedSongs: state.likedSongs.filter((likedSong) => likedSong?.id !== action.likedSong),
+                likedSongs: state.likedSongs.filter((likedSong) => likedSong?.songId !== action.payload),
             };
 
         case UPDATE_LIKED_SONG:
-            // Update the liked song with the new data
             return {
                 ...state,
                 likedSongs: state.likedSongs.map((likedSong) =>
-                    likedSong.id === action.likedSong.id ? action.likedSong : likedSong
+                    likedSong.id === action.payload.id ? action.payload : likedSong
                 ),
             };
         default:
@@ -131,40 +124,3 @@ const likedReducer = (state = initialState, action) => {
 };
 
 export default likedReducer;
-
-
-// Reducer
-// const initialState = { likedSongs: [] };
-
-// const likedReducer = (state = initialState, action) => {
-//     switch (action.type) {
-//         case GET_LIKED_SONGS:
-//             return {
-//                 ...state,
-//                 likedSongs: action.likedSongs,
-//             };
-//         case ADD_LIKED_SONG:
-//             return {
-//                 ...state,
-//                 likedSongs: [...state.likedSongs, action.likedSong],
-//             };
-//         case DELETE_LIKED_SONG:
-//             return {
-//                 ...state,
-//                 likedSongs: state.likedSongs.filter((likedSong) => likedSong?.id !== action.likedSongId),
-//             };
-//         case UPDATE_LIKED_SONG:
-//             return {
-//                 ...state,
-//                 likedSongs: state.likedSongs.map((likedSong) =>
-//                     likedSong.id === action.likedSong.id ? action.likedSong : likedSong
-//                 ),
-//             };
-//         default:
-//             return state;
-//     }
-// };
-
-// export default likedReducer;
-
-

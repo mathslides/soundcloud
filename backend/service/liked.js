@@ -24,7 +24,6 @@ async function getLikedSongsByUser() {
         }
       ],
     });
-    // console.log("likedSongs --------",JSON.stringify(likedSongs, null, 2));
     return likedSongs;
   } catch (error) {
     throw error;

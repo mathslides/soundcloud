@@ -16,6 +16,7 @@ function CreatePlaylist() {
     const [error, setError] = useState("");
     const { session } = useSelector(state => state);
     const userId = session?.user?.id;
+
     const handleCreatePlaylist = async () => {
         try {
             if (!newPlaylistName) {
@@ -90,6 +91,7 @@ function CreatePlaylist() {
             <Toaster />
 
         </Container>
+
     );
 }
 

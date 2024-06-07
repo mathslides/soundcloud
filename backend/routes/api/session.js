@@ -18,30 +18,44 @@ const validateLogin = [
   handleValidationErrors,
 ];
 
-// Log in
+//jwt 
+
 router.post(
-  "/",
+  '/',
   validateLogin,
   asyncHandler(async (req, res, next) => {
     const { credential, password } = req.body;
+    try {
+      const user = await User.login({ credential, password });
 
-    const user = await User.login({ credential, password });
-    if (!user) {
-      const err = new Error("Login failed");
-      err.status = 401;
-      err.title = "Login failed";
-      err.errors = ["The provided credentials were invalid."];
+      if (!user) {
+        const err = new Error('Login failed');
+        err.status = 401;
+        err.title = 'Login failed';
+        err.errors = ['The provided credentials were invalid.'];
+        return next(err);
+      }
+
+      // Set JWT token cookie
+      const token = await setTokenCookie(res, user);
+
+      return res.json({ user, token });
+    } catch (error) {
+      const err = new Error('Server error');
+      err.status = 500;
       return next(err);
     }
-
-    await setTokenCookie(res, user);
-
-    return res.json({ user });
   })
 );
 
 // log out user
-router.delete("/", (_req, res) => {
+router.delete("/logout", (_req, res) => {
+  res.clearCookie("token");
+  return res.json({ message: "success" });
+});
+
+// log out admin
+router.delete("/admin/logout", (_req, res) => {
   res.clearCookie("token");
   return res.json({ message: "success" });
 });
@@ -57,3 +71,4 @@ router.get("/", restoreUser, (req, res) => {
 });
 
 module.exports = router;
+

@@ -25,6 +25,14 @@ module.exports = (sequelize, DataTypes) => {
           len: [3, 256],
         },
       },
+      type: {
+        type: DataTypes.STRING,
+      
+      },
+      status: {
+        type: DataTypes.STRING,
+      
+      },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,
         allowNull: false,
@@ -36,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       defaultScope: {
         attributes: {
-          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"],
+          exclude: ["hashedPassword", "email", "updatedAt"],
         },
       },
       scopes: {
@@ -54,6 +62,7 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Comment, { foreignKey: "userId" });
     User.hasMany(models.Playlist, { foreignKey: "userId" });
     User.hasMany(models.Liked, { foreignKey: "userId" });
+    User.hasMany(models.Song, { foreignKey: "userId" });
   };
   //returns the User object
   User.prototype.toSafeObject = function () {

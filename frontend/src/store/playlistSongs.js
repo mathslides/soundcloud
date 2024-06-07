@@ -1,3 +1,4 @@
+
 import { BASEURL } from "../constants";
 import { csrfFetch } from "./csrf";
 
@@ -15,8 +16,6 @@ const getSongsInPlaylistSuccess = (songs) => ({
     songs,
 });
 
-
-
 // Thunk actions
 export const addToPlaylistSongs = (playlistId, songId) => async (dispatch) => {
     try {
@@ -28,7 +27,7 @@ export const addToPlaylistSongs = (playlistId, songId) => async (dispatch) => {
             body: JSON.stringify({ playlistId, songId }),
         });
         const data = await response.json();
-        dispatch(getSongsInPlaylist());
+        dispatch(getSongsInPlaylist(playlistId)); // Pass the playlistId
         dispatch(addSongToPlaylistSuccess(data));
         return data;
     } catch (error) {
@@ -39,7 +38,7 @@ export const addToPlaylistSongs = (playlistId, songId) => async (dispatch) => {
 
 export const getSongsInPlaylist = (playlistId) => async (dispatch) => {
     try {
-        const response = await fetch(`${BASEURL}/server/api/playlistSongs/getAll`);
+        const response = await fetch(`${BASEURL}/server/api/playlistSongs/getAllPlaylistSongs?playlistId=${playlistId}`);
         const data = await response.json();
         dispatch(getSongsInPlaylistSuccess(data));
     } catch (error) {

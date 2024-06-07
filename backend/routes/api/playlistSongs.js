@@ -15,7 +15,7 @@ router.post('/add-song-to-playlist', async (req, res) => {
   }
 });
 
-router.get('/getAll', async (req, res) => {
+router.get('/getAllPlaylistSongs', async (req, res) => {
   try {
     const response = await getSongsInPlaylist();
     return res.json(response);

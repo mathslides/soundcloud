@@ -27,6 +27,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+      },
     },
   );
   Song.associate = function (models) {
@@ -34,6 +42,9 @@ module.exports = (sequelize, DataTypes) => {
     Song.hasMany(models.Comment, { foreignKey: "songId" });
     Song.hasMany(models.Liked, { foreignKey: "songId" });
     Song.hasMany(models.PlaylistSongs, { foreignKey: "songId" });
+    Song.belongsTo(models.User, {
+      foreignKey: "userId",
+    });
   };
 
   Song.getCurrentSongById = async function (id) {

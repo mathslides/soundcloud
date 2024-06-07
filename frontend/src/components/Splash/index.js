@@ -12,6 +12,7 @@ import Modal from "react-modal";
 import SignupForm from "../SignupFormModal/SignupForm";
 import LoginFormPage from "../LoginFormModal/LoginForm"; // Import LoginFormPage
 import Footer from "./TrendingTracks/footer/footer";
+import Navigation from "../Navigation";
 
 Modal.setAppElement(document.getElementById("root"));
 
@@ -38,20 +39,21 @@ export default function Splash({ isLoaded }) {
 
   return (
     <div className="bg-black min-h-screen">
+      <Navigation />
       <SplashNavigation isLoaded={isLoaded} handleSignup={handleSignup} handleLogin={handleLogin} />
-      <div className="container mx-auto">
+      <div className="">
         <Slider />
         <div className="mt-8">
           <Search />
         </div>
         <TrendingTracks />
       </div>
-      <div className="container mx-auto">
+      <div className="">
         <MobileSplash />
         <CreatorSplash />
       </div>
       <div className="py-12">
-        <div className="container mx-auto bg-gray-800 p-8 rounded-lg shadow-lg flex flex-col items-center mb-16">
+        <div className=" bg-gray-800 p-8 rounded-lg shadow-lg flex flex-col items-center mb-16">
           <div className="text-center text-white">
             <div className="text-4xl mb-6 font-bold">Thanks for listening. Now join in.</div>
             <p className="text-lg mb-8">

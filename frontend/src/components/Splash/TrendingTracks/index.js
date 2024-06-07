@@ -45,7 +45,7 @@ export default function TrendingTracks() {
       <h2 className="text-white text-2xl font-bold mb-10 mt-12 text-center">
         Hear what’s trending in the RecordLabel community
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-4 p-8">
         {trendingSongs?.trendSongs?.map((song) => (
           <div
             className={`relative rounded-lg overflow-hidden border border-transparent group transition-transform ease-in-out duration-300 transform ${hoveredSongId === song.id ? 'hover:-translate-y-1 hover:shadow-lg' : ''
@@ -56,7 +56,7 @@ export default function TrendingTracks() {
             onClick={() => updateCurrent(song)} // Make the song clickable
           >
             <img
-              className="w-full h-auto"
+              className="w-1024 h-682"
               src={song.imgUrl}
               alt={song.title}
             />

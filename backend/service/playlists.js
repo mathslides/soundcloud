@@ -22,7 +22,7 @@ async function createPlaylist(playlistId) {
 
 async function getPlaylists() {
   try {
-    const data = await db.Playlist.findAll({limit :10})
+    const data = await db.Playlist.findAll()
     return data
   } catch (error) {
     throw error;

@@ -5,11 +5,17 @@ const { Song } = require("../../db/models");
 const asyncHandler = require("express-async-handler");
 const { singleMulterUpload, singlePublicFileUpload, imageUpload } = require("../../awsS3");
 const db = require("../../db/models");
-const { getAllSongs, getTrendSongs, getOneSong, uploadFunction } = require("../../service/songs");
+const { getAllSongs,
+  getTrendSongs,
+  getOneSong,
+  uploadFunction,
+  getAllAdminSongs,
+  getOneAdminSong,
+  uploadFunctionAdmin } = require("../../service/songs");
 
 // retrieving all the songs
 router.get(
-  "/",
+  "/getAllSongs",
   asyncHandler(async (req, res) => {
     const allSongs = await getAllSongs()
     return res.json(allSongs);
@@ -24,6 +30,31 @@ router.get(
   })
 );
 
+
+
+
+router.post("/upload", async (req, res) => {
+  try {
+
+    console.log("req.body", req.body);
+    const response = await uploadFunction(req.body)
+    return res.json(response);
+  } catch (error) {
+    console.error("Error uploading song:", error);
+    return res.status(500).json({ error: "Error uploading song" });
+  }
+});
+
+// Retrieve all admin songs (example route, ensure correct handling of admin-specific routes)
+router.get(
+  "/getAll",
+  asyncHandler(async (req, res) => {
+    const allSongs = await getAllAdminSongs()
+    const songs = res.json(allSongs);
+    return songs
+  })
+);
+
 router.get(
   "/:id",
   asyncHandler(async (req, res) => {
@@ -32,18 +63,5 @@ router.get(
     return res.json({ currentSong });
   })
 );
-
-
-
-router.post("/upload",async (req, res) => {
-  try {
-
-    const response =await uploadFunction(req.body)
-    return res.json(response);
-  } catch (error) {
-    console.error("Error uploading song:", error);
-    return res.status(500).json({ error: "Error uploading song" });
-  }
-});
 
 module.exports = router;

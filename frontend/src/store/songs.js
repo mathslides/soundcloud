@@ -26,13 +26,13 @@ const getOneSong = (song) => {
 };
 
 export const postSong = (song) => async (dispatch) => {
-  const { title, artist, genre, albumName, imgUrl, audioFile } = song;
+  const { title, artist, genre, albumName, imgUrl, audioFile, userId } = song;
   const response = await csrfFetch(`/server/api/songs/upload`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ title, artist, genre, albumName, imgUrl, audioFile }),
+    body: JSON.stringify({ title, artist, genre, albumName, imgUrl, audioFile, userId }),
   });
   const data = await response.json();
   dispatch(getAllSongs());
@@ -40,7 +40,7 @@ export const postSong = (song) => async (dispatch) => {
 };
 
 export const getAllSongs = () => async (dispatch) => {
-  const res = await fetch(`${BASEURL}/server/api/songs`);
+  const res = await fetch(`${BASEURL}/server/api/songs/getAllSongs`);
   const data = await res.json();
   dispatch(getSongs(data));
   return res;

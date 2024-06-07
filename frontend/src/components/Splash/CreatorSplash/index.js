@@ -7,10 +7,15 @@ import calisomnia2 from "./calisomnia2.jpeg";
 
 export default function CreatorSplash() {
   return (
-    <div className="bg-gray-800 p-8 rounded-lg shadow-lg flex flex-col items-center mt-12 mb-1">
-      <img src={calisomnia2} alt="Creator" className="w-full h-auto rounded-lg mb-8 shadow-md" />
+    // <div className="rounded-lg overflow-hidden shadow-md mb-8 transition-transform duration-500 ease-in-out transform hover:scale-105">
+
+    <div className="bg-gray-800 p-8 rounded-lg overflow-hidden shadow-lg flex flex-col items-center mt-12 mb-1 ">
+      <div className="transition-transform duration-500 ease-in-out transform hover:scale-105">
+        <img src={calisomnia2} alt="Creator" className="w-full h-96 " />
+
+      </div>
       <div className="text-center">
-        <h2 className="text-white text-4xl font-semibold mb-4">Calling all creators</h2>
+        <h2 className="text-white text-4xl font-semibold m-4">Calling all creators</h2>
         <p className="text-gray-300 text-lg mb-8 max-w-md">
           Get on Calisomnia to connect with fans, share your sounds, and grow your audience. What are you waiting for?
         </p>

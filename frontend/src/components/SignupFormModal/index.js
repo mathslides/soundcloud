@@ -1,4 +1,3 @@
-// frontend/src/components/LoginFormModal/index.js
 import React from "react";
 // import { Modal } from "../../context/Modal";
 import Modal from "react-modal";
@@ -39,13 +38,13 @@ function SignupFormModal() {
 
   return (
     <>
-      <button
+      {/* <button
         id="createAccBtn"
         className="nav-bar-btn"
         onClick={handleSignup}
       >
         Create Account
-      </button>
+      </button> */}
       <Modal
         width={800}
         isOpen={signupState}

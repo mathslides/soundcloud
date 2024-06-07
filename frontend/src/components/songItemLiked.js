@@ -1,18 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPlay, FaPause, FaHeart, FaRegHeart } from 'react-icons/fa';
 import { useDispatch, useSelector } from "react-redux";
 import 'react-responsive-modal/styles.css';
 import { setCurrent, setPlaying } from "../store/player";
+import { getLikedSongs } from "../store/liked";
 
 
 function SongItemLiked() {
+    const dispatch = useDispatch();
     const { current, playing, controls } = useSelector(state => state.player);
     const likedSongs = useSelector(state => state.likedSongs?.likedSongs);
-    const dispatch = useDispatch();
+    const loggedInUser = useSelector((state) => state.session?.user?.id);
+
+    const filteredLikedSongs = likedSongs.filter((list) => list?.userId == loggedInUser)
+
+
+    useEffect(() => {
+        dispatch(getLikedSongs());
+
+    }, [loggedInUser]);
+
     const [hoveredIndex, setHoveredIndex] = useState(null);
 
     const updateCurrent = (song) => {
-        if (!current || current.id !== song.id) {
+        if (!current || current.id !== song?.id) {
             dispatch(setCurrent(song));
             dispatch(setPlaying(true));
         } else {
@@ -37,7 +48,7 @@ function SongItemLiked() {
 
     return (
         <div className="grid text-white grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 relative bg-gray-900 rounded-lg overflow-hidden shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
-            {likedSongs?.map((likedSong, index) => (
+            {filteredLikedSongs?.map((likedSong, index) => (
                 <div
                     key={likedSong?.id} // Use a unique identifier as the key prop
                     className={`relative bg-gray-900 rounded-lg overflow-hidden shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg ${hoveredIndex === index ? 'hovered' : ''}`}
@@ -56,7 +67,7 @@ function SongItemLiked() {
                                     e.stopPropagation();
                                     updateCurrent(likedSong?.Song);
                                 }}>
-                                    {current?.id === likedSong.Song.id && playing ? <FaPause className="text-white text-sm" /> : <FaPlay className="text-white text-sm" />}
+                                    {current?.id === likedSong?.Song?.id && playing ? <FaPause className="text-white text-sm" /> : <FaPlay className="text-white text-sm" />}
 
                                 </div>
                             </div>

@@ -20,7 +20,7 @@ export const protectedRoutes = [
     },
     {
         key: "bottombar",
-        path: "/dashboard",
+        path: "/bottombar",
         component: React.lazy(() => import("../components/BottomBar.js")),
         loaded: true,
         layout: "protected"
@@ -47,12 +47,22 @@ export const protectedRoutes = [
         key: "createplaylist",
         path: "/createplaylist",
         component: React.lazy(() => import("../components/views/CreatePlaylist.js")),
+        layout: "protected"
+
     },
+    {
+        key: "artists",
+        path: "/artists",
+        component: React.lazy(() => import("../components/views/Artists.js")),
+        layout: "protected"
+
+    },
+
     //   {
     //     key: "logout",
     //     path: "/logout",
     //     component: React.lazy(() =>
-    //       import("")
+    //       import("") 
     //     ),
     //   },
 ];

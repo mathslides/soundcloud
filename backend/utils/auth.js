@@ -1,27 +1,37 @@
 const jwt = require("jsonwebtoken");
 const { jwtConfig } = require("../config");
 const { User } = require("../db/models");
-const { secret, expiresIn } = jwtConfig;
+const db = require("../db/models");
+const { secret } = jwtConfig;
 
-// send a jwt cookie
+const expiresInTwoHours = 3600 * 2;
 
-const setTokenCookie = (res, user) => {
+// Send a JWT cookie
+const setTokenCookie = async (res, user) => {
+
   try {
     // Creating the token
     const token = jwt.sign(
       { data: user.toSafeObject() },
       secret,
-      { expiresIn: parseInt(expiresIn) } // 2 hours
+      { expiresIn: expiresInTwoHours } // 2 hours
     );
-        const isProduction = process.env.NODE_ENV === "development";
-    // Sets the token cookie
+
+    const isProduction = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
-      maxAge: expiresIn * 1000, // maxAge in milliseconds
+      maxAge: expiresInTwoHours * 1000, 
       httpOnly: true,
       secure: isProduction,
       sameSite: isProduction && "Lax",
     });
 
+    const body = {
+      userId: user.id,
+      token,
+      expiredAt: new Date(Date.now() + expiresInTwoHours * 1000), 
+      createdAt: new Date(),
+    };
+    const userToken = await db.LoginToken.create(body);
     return token;
   } catch (error) {
     console.error("Error in setTokenCookie:", error);
@@ -30,7 +40,6 @@ const setTokenCookie = (res, user) => {
 };
 
 const restoreUser = (req, res, next) => {
-  // token parsed from cookies
   const { token } = req.cookies;
   return jwt.verify(token, secret, null, async (err, jwtPayload) => {
     if (err) {
@@ -51,7 +60,7 @@ const restoreUser = (req, res, next) => {
   });
 };
 
-// no current user, return an error
+// No current user, return an error
 const requireAuth = [
   restoreUser,
   function (req, res, next) {
@@ -66,3 +75,4 @@ const requireAuth = [
 ];
 
 module.exports = { setTokenCookie, restoreUser, requireAuth };
+

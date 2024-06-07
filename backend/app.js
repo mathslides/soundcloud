@@ -11,6 +11,7 @@ const {  port } = require("./config");
 const { environment } = require("./config");
 const isProduction = environment === "production";
 const db = require("./db/models");
+const EmailVerify = require("./controller/VerfiEmail");
 
 const app = express();
 app.use(express.json({ limit: '100mb' })); 
@@ -50,6 +51,7 @@ app.use(
 
 
 app.use(routes); // connect all the routes
+app.get("/emailverify",  EmailVerify); 
 
 // catch unhandled requests and forward to error handler
 app.use((_req, _res, next) => {

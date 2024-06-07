@@ -50,7 +50,7 @@ function Sidebar() {
           <li>
             <NavLink
               activeClassName="bg-active text-white"
-              to={"/dashboard"} // Updated route to "/home"
+              to={"/artists"} // Updated route to "/home"
               className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
             >
               <span className="mr-3">

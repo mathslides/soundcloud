@@ -15,7 +15,6 @@ function SongItem({ item }) {
 	const state = useSelector(state => state);
 	const dispatch = useDispatch();
 	const [isHovering, setIsHovering] = useState(false);
-	const [isLiked, setIsLiked] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [newPlaylistName, setNewPlaylistName] = useState("");
 	const [error, setError] = useState("");
@@ -23,19 +22,36 @@ function SongItem({ item }) {
 	const databaseSongs = useSelector((state) => state.playlists?.playlists);
 	const { session } = useSelector(state => state);
 	const userId = session?.user?.id;
-
 	const userPlaylists = Array.isArray(databaseSongs) ? databaseSongs?.filter(playlist => playlist?.userId === userId) : [];
+	const likedSongs = useSelector(state => state.likedSongs?.likedSongs || []);
+	// const likedSongs = useSelector(state => state.likedSongs?.likedSongs === userId || []);
+
+	const [isLiked, setIsLiked] = useState(likedSongs.some(song => song?.Song?.id === item?.id));
+	useEffect(() => {
+		setIsLiked(likedSongs.some(song => song?.songId === item?.id));
+	}, [likedSongs, item?.id]);
+
+
+
+	// const likedSongs = useSelector(state => state.likedSongs?.likedSongs || []);
+	// const [isLiked, setIsLiked] = useState(likedSongs.some(song => song?.Song?.id === item?.id && song?.userId === userId));
+	// useEffect(() => {
+	// 	setIsLiked(likedSongs.some(song => song?.Song?.id === item?.id && song?.userId === userId));
+	// }, [likedSongs, item, userId]);
 
 	useEffect(() => {
+		if (userId) {
+			dispatch(getLikedSongs(userId));
+		}
+	}, [dispatch, userId]);
+	useEffect(() => {
 		return () => {
-			dispatch(setCurrent(null)); // Reset current song to null
-			dispatch(setPlaying(false)); // Reset playing to false
+			dispatch(setCurrent(null));
+			dispatch(setPlaying(false));
 		};
 	}, []);
-
-
 	const imageStyle = () => {
-		switch (item.type) {
+		switch (item?.type) {
 			case 'artist':
 				return 'rounded-full';
 			case 'podcast':
@@ -47,12 +63,11 @@ function SongItem({ item }) {
 
 	const handleLiked = async () => {
 		try {
-			const songId = item.id;
+			const songId = item?.id;
 			const payload = { userId, songId };
 			const result = await dispatch(addLikedSong(payload));
 
 			if (result) {
-				// Update local state to reflect the change
 				setIsLiked(true);
 				toast.success('Song has been added to Liked!', {
 					duration: 1000,
@@ -70,7 +85,8 @@ function SongItem({ item }) {
 
 	const handleUnliked = async () => {
 		try {
-			const result = await dispatch(deleteLikedSong(item.id));
+			const result = await dispatch(deleteLikedSong(item?.id));
+
 			if (result) {
 				setIsLiked(false);
 				toast.success('Song has been removed from Liked!', {
@@ -86,10 +102,8 @@ function SongItem({ item }) {
 			});
 		}
 	};
-
-
 	const updateCurrent = () => {
-		if (current && current.id === item.id) {
+		if (current && current.id === item?.id) {
 			if (playing) {
 				controls?.pause();
 				dispatch(setPlaying(false));
@@ -102,18 +116,15 @@ function SongItem({ item }) {
 			dispatch(setPlaying(true));
 		}
 	};
-
 	const handleDropdownToggle = () => {
 		setIsDropdownOpen(!isDropdownOpen);
 	}
-
 	const handleDropdownItemClick = (action) => {
 		switch (action) {
 			case "add-to-playlist":
-				setShowModal(true); // Open the modal
+				setShowModal(true);
 				break;
 			case "option2":
-				// Handle option 2
 				break;
 			default:
 				break;
@@ -127,17 +138,22 @@ function SongItem({ item }) {
 				setError("Please enter a playlist name.");
 				return;
 			}
-			const songId = item.id;
+			const songId = item?.id;
 
 			const payload = {
 				userId,
 				name: newPlaylistName,
 				songId,
 			};
-
 			const result = await dispatch(createPlaylist(payload));
-			console.log("result handleCreatePlaylist", result);
 
+			const payload2 = {
+				userId,
+				playlistId: result.id,
+				songId,
+			};
+
+			const songAddition = await dispatch(addToPlaylistSongs(payload2));
 			if (result) {
 				toast.success('Playlist has been created!', {
 					duration: 3000,
@@ -155,7 +171,7 @@ function SongItem({ item }) {
 
 	const handleAddToPlaylist = async (playlistId) => {
 		try {
-			const songId = item.id;
+			const songId = item?.id;
 			const payload = {
 				userId,
 				playlistId,
@@ -163,13 +179,11 @@ function SongItem({ item }) {
 			};
 
 			const result = await dispatch(addToPlaylistSongs(payload));
-			console.log("result", result);
 			if (result) {
 				toast.success('Song has been added!', {
 					duration: 1000,
 					position: 'top-right',
 				});
-				// Close the modal after adding to playlist
 				setShowModal(false);
 			}
 		} catch (error) {
@@ -191,18 +205,17 @@ function SongItem({ item }) {
 				<div className="relative"
 					onMouseEnter={() => handleMouseEnter()}
 					onMouseLeave={() => handleMouseLeave()}>
-
 					<NavLink to="/dashboard">
 						<img
-							src={item.imgUrl}
-							alt={item.title}
+							src={item?.imgUrl}
+							alt={item?.title}
 							className={`w-full h-48 object-cover ${imageStyle()}`}
 						/>
 
 						{isHovering &&
 							<div className="absolute inset-0 flex items-center justify-center">
 								<div className="bg-green-600 rounded-full p-2" onClick={updateCurrent}>
-									{current?.id === item.id && playing ? <FaPause className="text-white text-sm" /> : <FaPlay className="text-white text-sm" />}
+									{current?.id === item?.id && playing ? <FaPause className="text-white text-sm" /> : <FaPlay className="text-white text-sm" />}
 								</div>
 							</div>
 						}
@@ -211,7 +224,7 @@ function SongItem({ item }) {
 				<div className="p-4">
 					<div className="flex flex-col">
 						<div className="flex items-center gap-4 justify-between">
-							<p className="text-gray-400">{item.artist}</p>
+							<p className="text-gray-400">{item?.artist}</p>
 							<div className="relative">
 								<FaEllipsisV className="text-gray-400" onClick={handleDropdownToggle} />
 
@@ -235,13 +248,16 @@ function SongItem({ item }) {
 						</div>
 
 						<div className="flex items-center gap-4 justify-between">
-							<h6 className="text-white font-semibold overflow-hidden overflow-ellipsis whitespace-nowrap">{item.title}</h6>
+							<h6 className="text-white font-semibold overflow-hidden overflow-ellipsis whitespace-nowrap">{item?.title}</h6>
 							{
-								isLiked ?
-									<FaHeart color="red" size={18} onClick={handleUnliked} /> :
+								isLiked ? (
+									<FaHeart color="red" size={18} onClick={handleUnliked} />
+								) : (
 									<FaRegHeart color="white" size={18} onClick={handleLiked} />
+								)
 							}
 						</div>
+
 					</div>
 				</div>
 

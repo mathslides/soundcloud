@@ -2,18 +2,6 @@ const db = require('../db/models');
 
 async function addSongToPlaylist(playlistId, songId) {
   try {
-
-    // const playlist = await db.Playlist.findByPk(playlistId);
-    // if (!playlist) {
-    //   throw new Error('Playlist not found');
-    // }
-
-    // const song = await db.Songs.findByPk(songId);
-    // if (!song) {
-    //   throw new Error('Song not found');
-    // }
-
-
     const data = {
       ...playlistId,
       songId: playlistId.songId,
@@ -38,7 +26,6 @@ async function getSongsInPlaylist() {
         }
       ],
     });
-
     return songs;
   } catch (error) {
     throw error;

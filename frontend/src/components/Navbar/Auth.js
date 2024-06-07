@@ -3,6 +3,7 @@ import { Icon } from '../../Icons';
 import { logout } from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { onSignOutSuccess } from "../../store/sessionSlice";
 
 function Auth() {
     const user = {
@@ -17,8 +18,11 @@ function Auth() {
 
     const handleLogout = () => {
         dispatch(logout());
+        // dispatch(onSignOutSuccess());
         history.push('/');
     };
+
+
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -32,7 +36,7 @@ function Auth() {
                 onClick={toggleMenu}
             >
                 <img src={user.avatar} className="w-8 h-8 rounded-full mr-2" alt="User Avatar" />
-                <span className="text-sm text-white font-semibold mr-2">{loggedInUser.username}</span>
+                <span className="text-sm text-white font-semibold mr-2">{loggedInUser?.username}</span>
                 <Icon size={16} name="downDir" className={`transform ${isOpen ? 'rotate-180' : ''} text-white`} />
                 {/* <Icon size={16} name="downDir" className={`transform ${isOpen ? 'rotate-180' : ''} text-white`} /> */}
             </button>
