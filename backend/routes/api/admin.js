@@ -8,15 +8,16 @@ const playlistRoutes = require("./playlist.js");
 const playlistSongsRoutes = require("./playlistSongs.js");
 const likedSongs = require("./liked.js");
 const emailVerificationRoutes = require("./emailVerification.js");
+const genreRoutes = require("./genre.js");
 
 
 router.use("/users", usersRouter);
 router.use("/songs", songsRouter);
-// router.use("/admin/songs", songsRouter);
 router.use("/comments", commentsRouter);
 router.use("/playlist", playlistRoutes);
 router.use("/playlistSongs", playlistSongsRoutes);
 router.use("/likedSongs", likedSongs);
 router.use("/emailVerification", emailVerificationRoutes);
+router.use("/genre", genreRoutes);
 
 module.exports = router;

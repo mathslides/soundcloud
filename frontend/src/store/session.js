@@ -98,7 +98,7 @@ export const logout = () => async (dispatch) => {
   return res;
 };
 
-const sessionReducer = (state = { user: null }, action) => {
+const sessionReducer = (state = { user: true }, action) => {
   let newState;
 
   switch (action.type) {

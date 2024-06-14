@@ -7,7 +7,8 @@ import SongItemLiked from "./songItemLiked";
 function SectionLiked({ title, more, items }) {
     return (
         <section className="">
-            <Title title={title} more={more} />
+            {/* <Title title={title} more={more} /> */}
+            <Title title={title} />
             <div className="text-white gap-4 pb-16">
                 <SongItemLiked />
             </div>

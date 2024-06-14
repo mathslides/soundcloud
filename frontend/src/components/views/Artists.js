@@ -6,25 +6,35 @@ import { HiOutlinePlusCircle } from "react-icons/hi";
 import { getAllUsers, updateUser } from '../../store/user';
 import { useDispatch, useSelector } from 'react-redux';
 import toast, { Toaster } from "react-hot-toast";
+import { getAllSongs } from '../../store/songs';
 
 
 function Artists() {
     const dispatch = useDispatch();
     const loggedInUser = useSelector((state) => state.session.user);
+    const databaseSongs = useSelector((state) => state.songs.songs);
     const [showModal, setShowModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [isAddingArtist, setIsAddingArtist] = useState(false);
     const usersState = useSelector(state => state.users);
     const users = Array.isArray(usersState.users) ? usersState.users : [];
 
-    // Include the logged-in user in the selected users list if they are an artist
     const selectedUsers = users.filter(user => user.type === "artist");
-
-    // Check if the loggedInUser is already in selectedUsers
     const isLoggedInUserArtist = selectedUsers.some(user => user.id === loggedInUser?.id);
+
+
+
+    const updatedArtists = selectedUsers?.map((artist) => {
+        const songCount = databaseSongs?.filter(
+            (song) => song?.userId === artist?.id
+        ).length;
+        return { ...artist, uploadedSong: songCount };
+    });
+
 
     useEffect(() => {
         dispatch(getAllUsers());
+        dispatch(getAllSongs());
     }, [loggedInUser, dispatch]);
 
     useEffect(() => {
@@ -67,6 +77,13 @@ function Artists() {
             },
         },
         {
+            Header: 'Uploaded Songs',
+            accessor: 'uploadedSong',
+            style: {
+                color: 'white',
+            },
+        },
+        {
             Header: 'Created At',
             accessor: 'createdAt',
             style: {
@@ -95,7 +112,7 @@ function Artists() {
                         </button>
                     </div>
                     <ReactTable
-                        data={selectedUsers}
+                        data={updatedArtists}
                         columns={columns}
                         defaultPageSize={5}
                         showPageSizeOptions={true}
@@ -106,6 +123,8 @@ function Artists() {
                                     backgroundColor: '#333',
                                     color: 'white',
                                     padding: '10px',
+                                    textAlign: 'left', // Align text to the left
+
                                 },
                             };
                         }}
@@ -167,4 +186,5 @@ function Artists() {
 }
 
 export default Artists;
+
 

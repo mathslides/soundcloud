@@ -4,6 +4,7 @@ import { logout } from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { onSignOutSuccess } from "../../store/sessionSlice";
+import { NavLink } from "react-router-dom/cjs/react-router-dom";
 
 function Auth() {
     const user = {
@@ -43,10 +44,13 @@ function Auth() {
             {isOpen && (
                 <ul className="absolute top-full right-0 bg-black text-white shadow-md w-48 mt-1">
                     <li className="hover:bg-gray-700 px-4 py-2">
-                        <a href="#">Profile</a>
-                    </li>
-                    <li className="hover:bg-gray-700 px-4 py-2">
-                        <a href="#">Account</a>
+                        {/* <a href="#">Profile</a> */}
+
+                        <NavLink
+                            to={"/profile"}
+                        >
+                            Profile
+                        </NavLink>
                     </li>
                     <li className="hover:bg-gray-700 px-4 py-2">
                         <button onClick={handleLogout}>Log out</button>

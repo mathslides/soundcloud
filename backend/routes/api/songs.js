@@ -11,16 +11,25 @@ const { getAllSongs,
   uploadFunction,
   getAllAdminSongs,
   getOneAdminSong,
-  uploadFunctionAdmin } = require("../../service/songs");
+  uploadFunctionAdmin, 
+  getGenres} = require("../../service/songs");
 
-// retrieving all the songs
 router.get(
   "/getAllSongs",
   asyncHandler(async (req, res) => {
-    const allSongs = await getAllSongs()
-    return res.json(allSongs);
+    const { searchTerm } = req.query;
+    try {
+      const allSongs = await getAllSongs(searchTerm);
+      return res.json(allSongs);
+    } catch (error) {
+      console.error("Error fetching songs:", error);
+      return res.status(400).json({ error })
+    }
   })
 );
+
+
+
 //! order matters!
 router.get(
   "/trend",
@@ -30,6 +39,17 @@ router.get(
   })
 );
 
+// Get all genres
+router.get('/getAllGenres', async (req, res) => {
+  try {
+
+      const genres = await getGenres();
+      return res.json(genres);
+  } catch (error) {
+      console.error('Error fetching genres:', error.message);
+      res.status(500).json({ error: 'Failed to fetch genres' });
+  }
+});
 
 
 

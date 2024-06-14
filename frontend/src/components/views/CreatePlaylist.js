@@ -60,7 +60,6 @@ function CreatePlaylist() {
                     closeButton: 'custom-closeButton',
                 }}>
                 <div className="bg-gray-900 p-8 rounded-lg w-96">
-                    <h3 className="text-lg font-semibold text-white mb-4">Add to Playlist</h3>
                     <div className="mt-4">
                         <h2 className="text-white font-semibold">Create New Playlist</h2>
                         <div className="flex items-center">

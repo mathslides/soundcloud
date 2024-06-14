@@ -10,7 +10,6 @@ const likedSongs = require("./liked.js");
 const adminRoutes = require("./admin.js");
 const emailVerificationRoutes = require("./emailVerification.js");
 
-
 const asyncHandler = require("express-async-handler");
 const {
   setTokenCookie,

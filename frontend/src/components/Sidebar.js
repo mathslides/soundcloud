@@ -1,5 +1,6 @@
-import { FaHome, FaSearch, FaMusic } from 'react-icons/fa';
-import { AiOutlineHeart, AiOutlinePlus } from 'react-icons/ai';
+
+import React from "react";
+import { FaHome, FaFolderOpen, FaUserCheck, FaMusic, FaHeart, FaFolderPlus, FaSignOutAlt } from 'react-icons/fa';
 import { NavLink } from "react-router-dom";
 
 function Sidebar() {
@@ -12,10 +13,10 @@ function Sidebar() {
         <ul className="flex flex-col">
           <li>
             <NavLink
-              activeClassName="bg-active text-white"
+              to={"/dashboard"}
+              className="h-12 flex items-center text-white font-semibold rounded  px-6 my-1 transition-colors duration-200"
+              activeClassName="bg-gray-700 text-white"
               exact
-              to={"/dashboard"} // Updated route to "/home"
-              className="h-12 flex items-center text-white  font-semibold text-link rounded hover:text-white px-6 my-1"
             >
               <span className="mr-3">
                 <FaHome size={15} />
@@ -25,45 +26,33 @@ function Sidebar() {
           </li>
           <li>
             <NavLink
-              activeClassName="bg-active text-white"
-              to={"/dashboard"} // Updated route to "/home"
-              className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
+              to={"/album"}
+              className="h-12 flex items-center text-white font-semibold rounded  px-6 my-1 transition-colors duration-200"
+              activeClassName="bg-gray-700 text-white"
             >
               <span className="mr-3">
-                <FaSearch size={15} />
-              </span>
-              Search
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              activeClassName="bg-active text-white"
-              to={"/dashboard"} // Updated route to "/home"
-              className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
-            >
-              <span className="mr-3">
-                <FaMusic size={15} />
+                <FaFolderOpen size={15} />
               </span>
               Albums
             </NavLink>
           </li>
           <li>
             <NavLink
-              activeClassName="bg-active text-white"
-              to={"/artists"} // Updated route to "/home"
-              className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
+              to={"/artists"}
+              className="h-12 flex items-center text-white font-semibold rounded  px-6 my-1 transition-colors duration-200"
+              activeClassName="bg-gray-700 text-white"
             >
               <span className="mr-3">
-                <FaMusic size={15} />
+                <FaUserCheck size={15} />
               </span>
               Artists
             </NavLink>
           </li>
           <li>
             <NavLink
-              activeClassName="bg-active text-white"
-              to={"/playlists"} // Updated route to "/home"
-              className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
+              to={"/playlists"}
+              className="h-12 flex items-center text-white font-semibold rounded  px-6 my-1 transition-colors duration-200"
+              activeClassName="bg-gray-700 text-white"
             >
               <span className="mr-3">
                 <FaMusic size={15} />
@@ -73,32 +62,44 @@ function Sidebar() {
           </li>
           <li>
             <NavLink
-              activeClassName="bg-active text-white"
-              to={"/liked"} // Updated route to "/home"
-              className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
+              to={"/liked"}
+              className="h-12 flex items-center text-white font-semibold rounded  px-6 my-1 transition-colors duration-200"
+              activeClassName="bg-gray-700 text-white"
             >
               <span className="mr-3">
-                <AiOutlineHeart size={15} />
+                <FaHeart size={15} />
               </span>
               Liked
             </NavLink>
           </li>
           <li>
             <NavLink
-              activeClassName="bg-active text-white"
-              to={"/createplaylist"}  // Updated route to "/upload"
-              className="h-12 flex items-center text-white font-semibold text-link rounded hover:text-white px-6 my-1"
+              to={"/createplaylist"}
+              className="h-12 flex items-center text-white font-semibold rounded  px-6 my-1 transition-colors duration-200"
+              activeClassName="bg-gray-700 text-white"
             >
               <span className="mr-3">
-                <AiOutlinePlus size={15} />
+                <FaFolderPlus size={15} />
               </span>
               Create Playlist
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={"/logout"}
+              className="h-12 flex items-center text-white font-semibold rounded  px-6 my-1 transition-colors duration-200"
+              activeClassName="bg-gray-700 text-white"
+            >
+              <span className="mr-3">
+                <FaSignOutAlt size={15} />
+              </span>
+              Logout
             </NavLink>
           </li>
         </ul>
       </nav>
     </aside>
-  )
+  );
 }
 
 export default Sidebar;

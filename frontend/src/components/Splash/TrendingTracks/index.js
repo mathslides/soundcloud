@@ -1,11 +1,11 @@
 
 import React, { useEffect, useState } from "react";
+import { FaPauseCircle, FaPlayCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getTrendingSongs, setCurrentSong } from "../../../store/songs";
-import { FaPlayCircle, FaPauseCircle } from "react-icons/fa";
+import { setCurrent, setPlaying } from "../../../store/player";
+import { getTrendingSongs } from "../../../store/songs";
 import Player from "../../BottomBar/Player"; // Import the Player component
-import { resetPlayer, setCurrent, setPlaying } from "../../../store/player";
 
 export default function TrendingTracks() {
   const dispatch = useDispatch();
@@ -32,12 +32,12 @@ export default function TrendingTracks() {
     } else {
       dispatch(setCurrent(song));
       dispatch(setPlaying(true));
-      setShowPlayer(true); // Show the player when a song is clicked
+      setShowPlayer(true);
     }
   };
 
   const handleClick = () => {
-    setShowPlayer(false); // Hide the player when clicked
+    setShowPlayer(false);
   };
 
   return (
@@ -53,7 +53,7 @@ export default function TrendingTracks() {
             key={song.id}
             onMouseEnter={() => setHoveredSongId(song.id)}
             onMouseLeave={() => setHoveredSongId(null)}
-            onClick={() => updateCurrent(song)} // Make the song clickable
+            onClick={() => updateCurrent(song)}
           >
             <img
               className="w-1024 h-682"

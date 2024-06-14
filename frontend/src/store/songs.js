@@ -39,12 +39,34 @@ export const postSong = (song) => async (dispatch) => {
   return data;
 };
 
-export const getAllSongs = () => async (dispatch) => {
-  const res = await fetch(`${BASEURL}/server/api/songs/getAllSongs`);
-  const data = await res.json();
-  dispatch(getSongs(data));
-  return res;
+// Redux action to fetch songs
+export const getAllSongs = (options = {}) => async (dispatch) => {
+  const params = new URLSearchParams(options)
+
+  try {
+    const res = await fetch(`${BASEURL}/server/api/songs/getAllSongs?${params}`);
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+    const data = await res.json();
+    dispatch(getSongs(data));
+
+    return data; // Return data to handle in component if needed
+  } catch (error) {
+    console.error('Error fetching songs:', error);
+    throw error; // Rethrow the error to handle in component if needed
+  }
 };
+
+
+
+
+// export const getAllSongs = () => async (dispatch) => {
+//   const res = await fetch(`${BASEURL}/server/api/songs/getAllSongs`);
+//   const data = await res.json();
+//   dispatch(getSongs(data));
+//   return res;
+// };
 
 export const getCurrentSong = (id) => async (dispatch) => {
   const res = await fetch(`${BASEURL}/server/api/songs/${id}`);

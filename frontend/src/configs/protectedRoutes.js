@@ -9,6 +9,14 @@ export const protectedRoutes = [
         layout: "protected"
 
     },
+    {
+        key: "album",
+        path: "/album",
+        component: React.lazy(() => import("../components/views/Album.js")),
+        loaded: true,
+        layout: "protected"
+
+    },
 
     {
         key: "upload",
@@ -55,14 +63,17 @@ export const protectedRoutes = [
         path: "/artists",
         component: React.lazy(() => import("../components/views/Artists.js")),
         layout: "protected"
-
     },
-
-    //   {
-    //     key: "logout",
-    //     path: "/logout",
-    //     component: React.lazy(() =>
-    //       import("") 
-    //     ),
-    //   },
+    {
+        key: "profile",
+        path: "/profile",
+        component: React.lazy(() => import("../components/Splash/SplashNavigation/ProfileButton.js")),
+        layout: "protected"
+    },
+    {
+        key: "logout",
+        path: "/logout",
+        component: React.lazy(() => import("../components/views/Logout.js")),
+        layout: "protected"
+    },
 ];
