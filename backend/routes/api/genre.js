@@ -20,10 +20,7 @@ router.post('/create-genre', async (req, res) => {
 // Get all genres
 router.get('/getAllGenres', async (req, res) => {
     try {
-        console.log("in the backrnd api--------");
-
         const genres = await getGenres();
-        console.log("genres--------", genres);
         return res.json(genres);
     } catch (error) {
         console.error('Error fetching genres:', error.message);

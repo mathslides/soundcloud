@@ -12,7 +12,8 @@ const { getAllSongs,
   getAllAdminSongs,
   getOneAdminSong,
   uploadFunctionAdmin, 
-  getGenres} = require("../../service/songs");
+  getGenres,
+  deleteSong} = require("../../service/songs");
 
 router.get(
   "/getAllSongs",
@@ -81,6 +82,22 @@ router.get(
     const songId = req.params.id;
     const currentSong = await getOneSong(songId);
     return res.json({ currentSong });
+  })
+);
+
+
+// Delete song by ID
+router.delete(
+  "/delete/:id",
+  asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    try {
+      const result = await deleteSong(id);
+      return res.json(result);
+    } catch (error) {
+      console.error("Error deleting song:", error);
+      return res.status(500).json({ message: "Failed to delete song" });
+    }
   })
 );
 

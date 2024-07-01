@@ -10,6 +10,7 @@ const getAllUsers = async () => {
 // Get one user by ID
 const getOneUser = async (id) => {
     const user = await User.findByPk(id);
+    console.log("user-----", user);
     return user;
 };
 
@@ -46,6 +47,21 @@ const approveArtist = async (id) => {
         }
         // Update the user's type to "artist"
         await user.update({ status: "Approved" });
+        return user;
+    } catch (error) {
+        console.error("Error updating user:", error);
+        throw new Error("Could not update user");
+    }
+};
+const editUser = async (id, userData) => {
+    console.log("userData--------121-------", userData);
+    try {
+        const user = await User.findByPk(id);
+        if (!user) {
+            throw new Error("User not found");
+        }
+        // Update the user's type to "artist"
+        await user.update(userData);
         return user;
     } catch (error) {
         console.error("Error updating user:", error);
@@ -90,6 +106,7 @@ module.exports = {
     joinArtist,
     deleteUser,
     approveArtist,
-    rejectArtist
+    rejectArtist,
+    editUser
     
 };

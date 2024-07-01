@@ -11,7 +11,7 @@ const {
 const { User } = require("../../db/models");
 const db = require("../../db/models");
 const { Op } = require("sequelize");
-const { getAllUsers, getOneUser, joinArtist, deleteUser, approveArtist, rejectArtist } = require("../../service/users");
+const { getAllUsers, getOneUser, joinArtist, deleteUser, approveArtist, rejectArtist, editUser } = require("../../service/users");
 
 // validation middleware for sign up and
 const validateSignup = [
@@ -99,6 +99,21 @@ router.put(
     }
   })
 );
+router.put(
+  "/edit/:id",
+  asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const userData = req.body;
+    console.log("userData-----", userData);
+    try {
+      const user = await editUser(id, userData);
+      return res.json(user);
+    } catch (error) {
+      console.error("Error updating user:", error);
+      return res.status(500).json({ message: "Failed to update user" });
+    }
+  })
+);
 // Update user by ID
 router.put(
   "/approve/update/:id",
@@ -132,7 +147,7 @@ router.put(
 
 // Delete user by ID
 router.delete(
-  "delete/:id",
+  "/delete/:id",
   asyncHandler(async (req, res) => {
     const { id } = req.params;
     try {

@@ -7,13 +7,17 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      link: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       genre: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       audioFile: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       imgUrl: {
         type: DataTypes.TEXT,
