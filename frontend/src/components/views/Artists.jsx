@@ -6,13 +6,16 @@ import { HiOutlinePlusCircle } from "react-icons/hi";
 import { getAllUsers, updateUser } from "../../store/user";
 import { useDispatch, useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
-import { getAllSongs } from "../../store/songs";
+import { getTrendingSongs } from "../../store/songs";
 import { FaSpinner } from "react-icons/fa";
 
 function Artists() {
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.session.user);
-  const databaseSongs = useSelector((state) => state.songs.songs);
+  const databaseSongs = useSelector(
+    (state) => state.songs?.trendingSongs?.trendSongs
+  );
+
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isAddingArtist, setIsAddingArtist] = useState(false);
@@ -37,7 +40,7 @@ function Artists() {
     const loadData = async () => {
       setLoader(true);
       await dispatch(getAllUsers());
-      await dispatch(getAllSongs());
+      await dispatch(getTrendingSongs());
       setLoader(false);
     };
 

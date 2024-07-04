@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       
       },
+      imgUrl: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,
         allowNull: false,

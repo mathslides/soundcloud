@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       email: {
-        type: DataTypes.STRING, 
+        type: DataTypes.STRING,
         allowNull: false,
       },
       code: {
@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       deletedAt: {
         type: DataTypes.DATE,
-        allowNull: true, 
-        defaultValue: null, 
+        allowNull: true,
+        defaultValue: null,
       },
       updatedAt: {
         type: DataTypes.DATE,
@@ -32,11 +32,18 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: DataTypes.NOW,
       },
       expiredAt: {
-        type: DataTypes.DATE, 
+        type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW,
       },
     },
+    {
+      defaultScope: {
+        attributes: {
+          exclude: ["code"],
+        },
+      },
+    }
   );
 
   return EmailVerification;
