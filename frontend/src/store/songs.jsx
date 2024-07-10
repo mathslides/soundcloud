@@ -26,8 +26,18 @@ const getOneSong = (song) => {
 };
 
 export const postSong = (song) => async (dispatch) => {
-  const { title, artist, genre, albumName, imgUrl, audioFile, userId, link } =
-    song;
+  const {
+    title,
+    artist,
+    genre,
+    albumName,
+    imgUrl,
+    audioFile,
+    userId,
+    youtubeLink,
+    facebookLink,
+    tiktokLink,
+  } = song;
   const response = await csrfFetch(`/server/api/songs/upload`, {
     method: "POST",
     headers: {
@@ -41,7 +51,9 @@ export const postSong = (song) => async (dispatch) => {
       imgUrl,
       audioFile,
       userId,
-      link,
+      youtubeLink,
+      facebookLink,
+      tiktokLink,
     }),
   });
   const data = await response.json();
@@ -83,7 +95,7 @@ export const getTrendingSongs = () => async (dispatch) => {
   const res = await fetch(`${BASEURL}/server/api/songs/trend`);
   const data = await res.json();
   dispatch(getTwelveSongs(data));
-  return res;
+  return data;
 };
 
 const initialState = { songs: null, trendingSongs: null, currentSong: null };

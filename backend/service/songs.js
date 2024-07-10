@@ -15,27 +15,22 @@ const getAllSongs = async (searchTerm) => {
   return allSongs;
 };
 
-async function getGenres() {
-  try {
-    const genres = await db.Genre.findAll();
-    return genres;
-  } catch (error) {
-    throw error;
-  }
-}
-
 const getTrendSongs = async () => {
   try {
     const trendSongs = await Song.findAll({
-      limit: 15,
+      // limit: 15,
       order: [["createdAt", "DESC"]],
       attributes: [
         "id",
         "title",
         "artist",
         "imgUrl",
-        "link",
-		"userId",
+        "youtubeLink",
+        "tiktokLink",
+        "facebookLink",
+        "userId",
+        "genre",
+
         [Sequelize.fn("count", Sequelize.col("audioFile")), "hasFile"],
       ],
       group: ["Song.id"],
@@ -51,6 +46,14 @@ const getOneSong = async (id) => {
   const getOne = await Song.findByPk(id);
   return getOne;
 };
+async function getGenres() {
+  try {
+    const genres = await db.Genre.findAll();
+    return genres;
+  } catch (error) {
+    throw error;
+  }
+}
 
 const uploadFunction = async (body) => {
   try {
@@ -93,7 +96,7 @@ const uploadFunctionAdmin = async (body) => {
     const newSong = await Song.create(data);
 
     return newSong;
-  } catch (error) {}
+  } catch (error) { }
 };
 
 // Delete a user by ID
@@ -111,6 +114,21 @@ const deleteSong = async (id) => {
   }
 };
 
+
+const editSong = async (id, updatedData) => {
+  try {
+    const song = await Song.findByPk(id);
+    if (!song) {
+      throw new Error("Song not found");
+    }
+    await song.update(updatedData);
+    return song;
+  } catch (error) {
+    console.error("Error updating song:", error);
+    throw new Error("Could not update song");
+  }
+};
+
 module.exports = {
   getAllSongs,
   getTrendSongs,
@@ -121,4 +139,5 @@ module.exports = {
   uploadFunctionAdmin,
   getGenres,
   deleteSong,
+  editSong
 };

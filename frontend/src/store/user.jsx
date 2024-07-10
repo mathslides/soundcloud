@@ -170,7 +170,7 @@ export const getAllUsers = () => async (dispatch) => {
     const res = await fetch(`${BASEURL}/server/api/users/getAllUsers`);
     const data = await res.json();
     dispatch(getUsers(data));
-    return res;
+    return data;
   } catch (error) {
     // Handle error
   }

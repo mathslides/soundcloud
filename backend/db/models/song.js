@@ -7,7 +7,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      link: {
+      youtubeLink: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      facebookLink: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      tiktokLink: {
         type: DataTypes.STRING,
         allowNull: true,
       },

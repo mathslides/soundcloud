@@ -10,7 +10,7 @@ const getAllUsers = async () => {
 // Get one user by ID
 const getOneUser = async (id) => {
     const user = await User.findByPk(id);
-    console.log("user-----", user);
+
     return user;
 };
 
@@ -54,7 +54,6 @@ const approveArtist = async (id) => {
     }
 };
 const editUser = async (id, userData) => {
-    console.log("userData--------121-------", userData);
     try {
         const user = await User.findByPk(id);
         if (!user) {

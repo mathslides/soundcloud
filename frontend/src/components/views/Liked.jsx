@@ -6,21 +6,20 @@ import LoaderSpinner from "../Spinner";
 import { getLikedSongs } from "../../store/liked";
 
 function Liked() {
-  const loggedInUser = useSelector((state) => state.session?.user?.id);
   const likedSongs = useSelector((state) => state.likedSongs?.likedSongs);
   const dispatch = useDispatch();
+
+  const loggedInUser = useSelector((state) => state.session?.user?.id);
+
+  const filteredLikedSongs = likedSongs.filter(
+    (list) => list?.userId == loggedInUser
+  );
 
   useEffect(() => {
     dispatch(getLikedSongs());
   }, [loggedInUser]);
 
-  // if (!likedSongs) {
-  //     return (
-  //         <LoaderSpinner />
-  //     );
-  // }
-
-  if (likedSongs?.length === 0) {
+  if (filteredLikedSongs?.length === 0) {
     return (
       <Container>
         <div className="flex items-center justify-center h-full py-80 text-white">

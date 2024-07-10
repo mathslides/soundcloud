@@ -8,7 +8,7 @@ dns.setDefaultResultOrder("verbatim");
 export default defineConfig({
     plugins: [react(), mkcert(), macrosPlugin()],
     server: {
-        port: 3000,
+        port: 3001,
         open: true // Automatically open the browser on server start
     },
     // build: {

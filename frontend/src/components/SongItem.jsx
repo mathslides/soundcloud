@@ -265,18 +265,12 @@ function SongItem({ item }) {
                 />
 
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-1 w-48 bg-black rounded-lg shadow-lg py-2 z-10">
+                  <div className="absolute right-0 mt-1  sm:w-30 md:w-36 lg:w-38  bg-gray-400 rounded-lg shadow-lg z-10">
                     <div
-                      className="px-4 py-2 hover:bg-green-900 cursor-pointer"
+                      className="px-4 py-2 hover:bg-gray-700 cursor-pointer"
                       onClick={() => handleDropdownItemClick("add-to-playlist")}
                     >
                       Add to Playlist
-                    </div>
-                    <div
-                      className="px-4 py-2 hover:bg-green-900 cursor-pointer"
-                      onClick={() => handleDropdownItemClick("option2")}
-                    >
-                      Option 2
                     </div>
                   </div>
                 )}

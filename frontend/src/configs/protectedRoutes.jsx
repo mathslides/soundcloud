@@ -20,7 +20,7 @@ export const protectedRoutes = [
     key: "upload",
     path: "/upload",
     component: React.lazy(() =>
-      import("../components/UploadForm/UploadForm.jsx")
+      import("../components/UploadForm/UploadGeneric.jsx")
     ),
     loaded: true,
     layout: "protected",

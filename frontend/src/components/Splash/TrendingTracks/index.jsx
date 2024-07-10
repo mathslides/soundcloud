@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
+  FaFacebook,
   FaPauseCircle,
   FaPlayCircle,
+  FaTiktok,
   FaTimes,
   FaYoutube,
 } from "react-icons/fa";
@@ -16,31 +18,28 @@ export default function TrendingTracks() {
   const [hoveredSongId, setHoveredSongId] = useState(null);
   const [showPlayer, setShowPlayer] = useState(false);
   const [youtubeLink, setYoutubeLink] = useState(null);
-  const [singleSong, setSingleSong] = useState(null);
   const [loader, setLoader] = useState(false);
+  const [dashboardSong, setDashboardSongs] = useState([]);
 
   useEffect(() => {
-    fetchTrendingSongs();
-  }, [dispatch]);
+    fetchTrending();
+  }, []);
 
-  const fetchTrendingSongs = async () => {
+  const fetchTrending = async () => {
     try {
       setLoader(true);
-      await dispatch(getTrendingSongs());
+      const response = await dispatch(getTrendingSongs());
+      setDashboardSongs(response?.trendSongs?.slice(0, 15)); // Limit to first 15 songs
       setLoader(false);
     } catch (error) {
-      console.error("Error fetching trending songs:", error);
-      setLoader(false);
+      console.error("Error fetching genres:", error);
+      setLoader(false); // Ensure loader is disabled in case of error
     }
   };
-
-  const trendingSongs = useSelector((state) => state.songs?.trendingSongs);
-
   const fetchOne = async (songId) => {
     if (!songId) return;
     try {
       const response = await dispatch(getOne(songId));
-      setSingleSong(response?.currentSong);
       return response?.currentSong;
     } catch (error) {
       console.error("Error fetching genres:", error);
@@ -76,6 +75,16 @@ export default function TrendingTracks() {
   const handleWatchOnYouTube = (e, youtubeUrl) => {
     e.stopPropagation();
     setYoutubeLink(youtubeUrl);
+  };
+
+  const handleWatchOnFacebook = (e, facebookUrl) => {
+    e.stopPropagation();
+    window.open(facebookUrl, "_blank");
+  };
+
+  const handleWatchOnTiktok = (e, tiktokUrl) => {
+    e.stopPropagation();
+    window.open(tiktokUrl, "_blank");
   };
 
   const extractYouTubeId = (url) => {
@@ -117,7 +126,7 @@ export default function TrendingTracks() {
         Hear what’s trending in the Calisomnia community
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-4 p-8">
-        {trendingSongs?.trendSongs?.map((song) => (
+        {dashboardSong?.map((song) => (
           <div
             className={`relative rounded-lg overflow-hidden border border-transparent group transition-transform ease-in-out duration-300 transform ${
               hoveredSongId === song?.id
@@ -148,18 +157,38 @@ export default function TrendingTracks() {
                 )}
               </div>
             )}
-            <div className="flex flex-col bottom-0 left-0 right-0 bg-black bg-opacity-75 pl-0.5 relative z-20">
-              <div className="flex justify-between items-center">
+            <div className="flex flex-col bottom-0 left-0 right-0 bg-black bg-opacity-75  p-2 relative z-20">
+              <div className="flex justify-between items-center pt-1">
                 <p className="text-white text-lg font-semibold truncate-text max-w-full">
                   {song?.title}
                 </p>
-                {song?.link && (
-                  <FaYoutube
-                    className="text-gray-400 cursor-pointer text-3xl"
-                    onClick={(e) => handleWatchOnYouTube(e, song?.link)}
-                    title="Watch on YouTube"
-                  />
-                )}
+                <div className="flex justify-between gap-2 items-center">
+                  {song?.youtubeLink && (
+                    <FaYoutube
+                      className="text-gray-400 cursor-pointer text-2xl"
+                      onClick={(e) =>
+                        handleWatchOnYouTube(e, song?.youtubeLink)
+                      }
+                      title="Watch on YouTube"
+                    />
+                  )}
+                  {song?.facebookLink && (
+                    <FaFacebook
+                      className="text-gray-400 cursor-pointer text-xl"
+                      onClick={(e) =>
+                        handleWatchOnFacebook(e, song?.facebookLink)
+                      }
+                      title="Watch on Facebook"
+                    />
+                  )}
+                  {song?.tiktokLink && (
+                    <FaTiktok
+                      className="text-gray-400 cursor-pointer text-xl"
+                      onClick={(e) => handleWatchOnTiktok(e, song?.tiktokLink)}
+                      title="Watch on TikTok"
+                    />
+                  )}
+                </div>
               </div>
               <p className="text-gray-300 truncate-text max-w-full">
                 {song?.artist}
@@ -183,9 +212,9 @@ export default function TrendingTracks() {
       </div>
       {youtubeLink && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-75 z-50">
-          <div className="bg-white rounded-lg p-4 relative">
+          <div className="bg-gray-500 p-0.5 relative">
             <button
-              className="absolute right-6 top-6 text-white"
+              className="absolute right-3 top-3 text-white"
               onClick={() => setYoutubeLink(null)}
             >
               <FaTimes />

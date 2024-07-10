@@ -10,6 +10,8 @@ function ProfileButton() {
 
   const dispatch = useDispatch();
 
+  const profile = "/assets/dummyProfile.png";
+
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -41,16 +43,21 @@ function ProfileButton() {
     <Container>
       <div className="bg-gray-800 text-white rounded-lg shadow-lg w-full mx-auto overflow-hidden relative">
         <div className="bg-gray-600 p-4 md:p-8 flex flex-col items-center">
-          {userData ? (
+          {userData?.imgUrl ? (
             <img
               src={userData?.imgUrl}
               alt="Profile"
               className="h-32 w-32 rounded-full object-cover mx-auto"
             />
           ) : (
-            <div className="h-32 w-32 rounded-full bg-gray-700 mx-auto flex items-center justify-center">
-              <span className="text-gray-400">No Image</span>
-            </div>
+            <img
+              src={profile}
+              alt="Profile"
+              className="h-32 w-32 rounded-full object-cover mx-auto"
+            />
+            // <div className="h-32 w-32 rounded-full bg-gray-700 mx-auto flex items-center justify-center">
+            //   <span className="text-gray-400">No Image</span>
+            // </div>
           )}{" "}
           <h1 className="text-2xl md:text-4xl font-extrabold mt-4">
             {userData?.username}

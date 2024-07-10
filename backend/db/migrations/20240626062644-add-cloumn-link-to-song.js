@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn('Songs', 'link', {
+    await queryInterface.addColumn('Songs', 'youtubeLink', {
       type: Sequelize.STRING,
       allowNull: true, 
 
@@ -14,10 +14,10 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('Songs', 'link');
+    await queryInterface.removeColumn('Songs', 'youtubeLink');
     await queryInterface.changeColumn('Songs', 'audioFile', {
       type: Sequelize.TEXT,
-      allowNull: false, 
+      // allowNull: false, 
     });
   }
 };

@@ -83,6 +83,7 @@ function Auth() {
     imgUrl: "",
     createdAt: "",
   });
+  const profile = "/assets/dummyProfile.png";
 
   useEffect(() => {
     if (dispatch && loggedInUser) {
@@ -115,11 +116,25 @@ function Auth() {
         } hover:bg-gray-700`}
         onClick={toggleMenu}
       >
-        <img
+        {/* <img
           src={userData?.imgUrl}
           className="h-8 w-8 rounded-full object-cover mr-2"
           alt=""
-        />
+        /> */}
+
+        {userData?.imgUrl ? (
+          <img
+            src={userData?.imgUrl}
+            alt="Profile"
+            className="h-8 w-8 rounded-full object-cover mr-2"
+          />
+        ) : (
+          <img
+            src={profile}
+            alt="Profile"
+            className="h-8 w-8 rounded-full object-cover mr-2"
+          />
+        )}
         <span className="text-sm text-white font-semibold mr-2">
           {userData?.username}
         </span>

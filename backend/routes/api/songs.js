@@ -13,7 +13,8 @@ const { getAllSongs,
   getOneAdminSong,
   uploadFunctionAdmin, 
   getGenres,
-  deleteSong} = require("../../service/songs");
+  deleteSong,
+  editSong} = require("../../service/songs");
 
 router.get(
   "/getAllSongs",
@@ -97,6 +98,22 @@ router.delete(
     } catch (error) {
       console.error("Error deleting song:", error);
       return res.status(500).json({ message: "Failed to delete song" });
+    }
+  })
+);
+
+// Edit song by ID
+router.put(
+  '/edit/:id',
+  asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const updatedData = req.body;
+    try {
+      const updatedSong = await editSong(id, updatedData);
+      return res.json(updatedSong);
+    } catch (error) {
+      console.error('Error editing song:', error);
+      return res.status(500).json({ message: 'Failed to edit song' });
     }
   })
 );

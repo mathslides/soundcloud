@@ -10,7 +10,7 @@ router.post('/create', async (req, res) => {
 
   } catch (error) {
     console.error('Error verifying email:', error.message);
-    res.status(500).json({ error: 'Failed to verify email' });
+    res.status(500).json({ error: 'Email already exists, please use different email!' });
   }
 });
 router.post('/test', async (req,res) => {

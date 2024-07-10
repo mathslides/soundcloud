@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       imgUrl: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        // allowNull: false,
       },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,

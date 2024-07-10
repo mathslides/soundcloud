@@ -1,8 +1,7 @@
-// import sliderImg1 from "./sliderImg1.png";
-// import sliderImg2 from "./sliderImg2.png";
 import morien from "./Moreni.png";
 import desktop8 from "./Desktop8.png";
 import desktop9 from "./Desktop9.png";
+import asad from "./Desktop9.png";
 
 export const SliderData = [
   {
