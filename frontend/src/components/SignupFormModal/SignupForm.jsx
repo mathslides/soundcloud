@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { verifyEmail } from "../../store/emailVerification";
 import VerificationFormPage from "./VerificationPage";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import * as sessionActions from "../../store/session";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -14,40 +16,53 @@ function SignupFormPage() {
   const [errors, setErrors] = useState([]);
   const [showVerificationForm, setShowVerificationForm] = useState(false);
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (password === confirmPassword) {
+  //     setErrors([]);
+  //     setLoading(true);
+  //     try {
+  //       const verifyResponse = await dispatch(verifyEmail(email));
+  //       if (verifyResponse) {
+  //         toast.success("Email has been sent to your email address", {
+  //           duration: 3000,
+  //           position: "top-right",
+  //         });
+  //         setShowVerificationForm(true);
+  //       } else {
+  //         setErrors(["Verification failed. Please try again."]);
+  //       }
+  //     } catch (res) {
+  //       try {
+  //         const data = await res.json();
+  //         if (data && data.error) {
+  //           setErrors([data.error]);
+  //         } else {
+  //           setErrors(["An unexpected error occurred. Please try again."]);
+  //         }
+  //       } catch (error) {
+  //         setErrors(["Failed to parse error response. Please try again."]);
+  //       }
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   } else {
+  //     setErrors([
+  //       "Confirm Password field must be the same as the Password field",
+  //     ]);
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-      setErrors([]);
-      setLoading(true);
-      try {
-        const verifyResponse = await dispatch(verifyEmail(email));
-        if (verifyResponse) {
-          toast.success("Email has been sent to your email address", {
-            duration: 3000,
-            position: "top-right",
-          });
-          setShowVerificationForm(true);
-        } else {
-          setErrors(["Verification failed. Please try again."]);
-        }
-      } catch (res) {
-        try {
-          const data = await res.json();
-          if (data && data.error) {
-            setErrors([data.error]);
-          } else {
-            setErrors(["An unexpected error occurred. Please try again."]);
-          }
-        } catch (error) {
-          setErrors(["Failed to parse error response. Please try again."]);
-        }
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      setErrors([
-        "Confirm Password field must be the same as the Password field",
-      ]);
+    try {
+      await dispatch(sessionActions.signup({ email, username, password }));
+      history.push("/dashboard");
+    } catch (error) {
+      console.error("Error signing up:", error.message);
+      setErrors(["Verification code is incorrect or expired."]);
     }
   };
 

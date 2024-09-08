@@ -13,7 +13,7 @@ async function createEmailEntry(body) {
       expiredAt,
     };
     const data = await db.EmailVerification.create(payload);
-    const email = await emailVerify(payload)
+    // const email = await emailVerify(payload)
     return data;
   } catch (error) {
     throw error;

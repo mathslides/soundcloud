@@ -1,5 +1,5 @@
 const express = require('express');
-const { createEmailEntry, getEmailEntries, deleteEmailEntry, updateEmailEntry,emailVerify } = require('../../service/emailVerification');
+const { createEmailEntry, getEmailEntries, deleteEmailEntry, updateEmailEntry } = require('../../service/emailVerification');
 const router = express.Router();
 
 router.post('/create', async (req, res) => {
@@ -11,16 +11,6 @@ router.post('/create', async (req, res) => {
   } catch (error) {
     console.error('Error verifying email:', error.message);
     res.status(500).json({ error: 'Email already exists, please use different email!' });
-  }
-});
-router.post('/test', async (req,res) => {
-  try {
-    const response = await emailVerify();
-    return res.json(response);
-
-  } catch (error) {
-    console.error('Error verifying email:', error.message);
-    // res.status(500).json({ error: 'Failed to verify email' });
   }
 });
 

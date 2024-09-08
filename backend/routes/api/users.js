@@ -39,17 +39,20 @@ router.post(
   '/signup',
   validateSignup,
   asyncHandler(async (req, res) => {
-    const { email, username, password, verificationCode } = req.body;
+    // const { email, username, password, verificationCode } = req.body;
+    const { email, username, password } = req.body;
+
     try {
-      const verificationEntry = await db.EmailVerification.findOne({
-        where: {
-          code: verificationCode,
-          expiredAt: { [Op.gt]: new Date() } 
-        }
-      });
-      if (!verificationEntry) {
-        return res.status(400).json({ message: 'Verification code is incorrect or expired.' });
-      }
+      // const verificationEntry = await db.EmailVerification.findOne({
+      //   where: {
+      //     code: verificationCode,
+      //     expiredAt: { [Op.gt]: new Date() } 
+      //   }
+      // });
+      // if (!verificationEntry) {
+      //   return res.status(400).json({ message: 'Verification code is incorrect or expired.' });
+      // }
+
       const user = await User.signup({ email, username, password });
       await setTokenCookie(res, user);
       return res.json({ user });

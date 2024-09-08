@@ -33,34 +33,37 @@ export const login = (user) => async (dispatch) => {
   return res;
 };
 
-
-
 export const restoreUser = () => async (dispatch) => {
-
   const res = await csrfFetch("/server/api/session");
   // const res = await csrfFetch(`${BASEURL}/server/api/session/login`);
   const data = await res.json();
   dispatch(setUser(data.user));
   return res;
 };
-// export const restoreUser = () => async (dispatch) => {
-//   const token = localStorage.getItem("token");
-//   if (!token) return;
 
-//   const res = await csrfFetch("/server/api/session", {
+// export const signup = (user) => async (dispatch) => {
+//   const { username, email, password, verificationCode } = user;
+//   const res = await csrfFetch("/server/api/users/signup", {
+//     method: "POST",
 //     headers: {
-//       Authorization: token,
+//       "Content-Type": "application/json",
 //     },
+//     body: JSON.stringify({
+//       username,
+//       email,
+//       password,
+//       verificationCode,
+//     }),
 //   });
 //   const data = await res.json();
 //   if (res.ok) {
+//     localStorage.setItem("token", data.token);
 //     dispatch(setUser(data.user));
 //   }
 //   return res;
 // };
-
 export const signup = (user) => async (dispatch) => {
-  const { username, email, password, verificationCode } = user;
+  const { username, email, password } = user;
   const res = await csrfFetch("/server/api/users/signup", {
     method: "POST",
     headers: {
@@ -70,7 +73,6 @@ export const signup = (user) => async (dispatch) => {
       username,
       email,
       password,
-      verificationCode,
     }),
   });
   const data = await res.json();
@@ -114,4 +116,3 @@ const sessionReducer = (state = { user: true }, action) => {
 };
 
 export default sessionReducer;
-

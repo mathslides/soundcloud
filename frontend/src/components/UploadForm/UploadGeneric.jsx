@@ -78,7 +78,7 @@ function UploadGeneric() {
   const tabs = [
     {
       id: 0,
-      label: "UploadForm",
+      label: "Upload Songs",
       content: (
         <div>
           <UploadForm editSongId={editSongId} />
@@ -91,7 +91,7 @@ function UploadGeneric() {
       content: (
         <div>
           <div className="w-full">
-            <ReactTable
+            {/* <ReactTable
               data={filteredSongs}
               columns={columns}
               defaultPageSize={10}
@@ -126,6 +126,45 @@ function UploadGeneric() {
                   },
                 };
               }}
+            /> */}
+
+            <ReactTable
+              data={filteredSongs}
+              columns={columns}
+              defaultPageSize={10}
+              showPageSizeOptions={true}
+              minRows={0}
+              getTheadThProps={() => ({
+                style: {
+                  backgroundColor: "#333",
+                  color: "white",
+                  padding: "10px",
+                  textAlign: "left",
+                },
+              })}
+              getTheadTrProps={() => ({
+                style: {
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                },
+              })}
+              getTrProps={(state, rowInfo, column) => ({
+                style: {
+                  backgroundColor:
+                    rowInfo && rowInfo.row && rowInfo.row.index % 2 === 0
+                      ? "rgba(255, 255, 255, 0.1)"
+                      : "rgba(255, 255, 255, 0.05)",
+                  color: "white",
+                  padding: "10px",
+                },
+              })}
+              NoDataComponent={() => (
+                <div
+                  className="text-white"
+                  style={{ textAlign: "center", padding: "20px" }}
+                >
+                  No songs found
+                </div>
+              )}
             />
           </div>
         </div>

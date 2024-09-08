@@ -45,7 +45,6 @@ router.post('/login', validateLogin, asyncHandler(async (req, res, next) => {
 }));
 // log out admin
 router.delete("/logout", verifyToken, (_req, res) => {
-  console.log("logout admin------");
   res.clearCookie("token");
   return res.json({ message: "success" });
 });
