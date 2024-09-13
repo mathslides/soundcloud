@@ -1,8 +1,10 @@
 #mob-img {
-  position: relative;
-  top: 0;
-  right: 200px;
+  /* position: relative; */
+  /* top: 0; */
+  /* right: 200px; */
   /* border: 5px solid red; */
+  object-fit: fill;
+  background-color: lightseagreen;
 }
 
 #mob-container {
@@ -18,9 +20,9 @@
   bottom: 385px;
   /* left: 370px; */
   left: 350px;
-  font-size: 35px;
+  /* font-size: 35px; */
   margin-bottom: 15px;
-  color: #242424;
+  color: white;
   font-weight: 500;
 }
 
@@ -35,12 +37,12 @@
 }
 
 #mob-txt {
-  font-size: 23px;
+  font-size: 16px;
   margin-top: 15px;
   margin-bottom: 30px;
-  color: #242424;
+  color: white;
   line-height: 1.5;
-  width: 300px;
+  width: 200px;
   position: relative;
   bottom: 385px;
   left: 560px;
@@ -66,4 +68,39 @@
   position: relative;
   bottom: 385px;
   left: 565px;
+}
+
+/* .card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
+.card {
+  background-color: darkturquoise;
+  padding: 20px;
+  width: 300px; /* Set width and height to create a square shape */
+  /* height: 300px; */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.card-text {
+  font-size: 16px;
+  color: white; /* Adjust text color */
 }

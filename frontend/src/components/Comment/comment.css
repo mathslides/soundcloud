@@ -11,7 +11,7 @@
   position: absolute;
   top: 5px;
   margin-top: 5px;
-  color: #1fb453;
+  color: lightseagreen;
   margin-left: 1.5rem;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .edit__btn:hover {
-  color: #1fb453;
+  color: lightseagreen;
 }
 
 .edit__form__c {

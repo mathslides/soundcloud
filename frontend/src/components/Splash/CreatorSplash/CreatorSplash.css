@@ -9,9 +9,9 @@
   position: relative;
   bottom: 315px;
 }
-
+   
 #creator-title {
-  font-size: 36px;
+  font-size: 30px;
   /* font-weight: 100; */
   color: white;
   position: relative;
@@ -20,8 +20,8 @@
 }
 
 #creator-text {
-  font-size: 24px;
-  line-height: 1.35;
+  font-size: 16px;
+  line-height: 1.15;
   margin: 11px 0 26px;
   position: relative;
   bottom: 290px;
@@ -39,7 +39,7 @@
   border: 1px solid #ccc;
   font-size: 17px;
   max-width: 164px;
-  height: 30px;
+  height: 49px;
   margin-right: 25px;
   padding-top: 12px;
   border-radius: 5px;
